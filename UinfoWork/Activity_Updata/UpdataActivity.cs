@@ -22,7 +22,7 @@ namespace Uinfo.Activity_Updata
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.About);
+            SetContentView(Resource.Layout.Updata);
             #region 设置ToolBar
             SetToolBar();
             #endregion
@@ -30,7 +30,7 @@ namespace Uinfo.Activity_Updata
             Button DownloadButton = FindViewById<Button>(Resource.Id.DownloadButton);
             DownloadButton.Click += (o, e) =>
             {
-                DownLoadApk("Uinfo", "更新", "https://dl.hdslb.com/mobile/latest/iBiliPlayer-blue-bilibili.apk?spm_id_from=333.47.b_646f776e6c6f61642d6c696e6b.2");
+                DownLoadApk("Uinfo", "更新", "https://github.com/UMI64/UinfoWork/raw/master/UinfoWork.UinfoWork.apk");
             };
             #endregion
         }

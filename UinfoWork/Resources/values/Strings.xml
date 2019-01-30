@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">UinfoWork</string>
-    <string name="action_settings">Settings</string>
+  <string name="app_name">UinfoWork</string>
+  <string name="Discription">{"新功能":["添加关于界面","添加应用内更新功能"]}</string>
 </resources>

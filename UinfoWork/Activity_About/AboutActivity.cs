@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Xml;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +20,31 @@ namespace Uinfo.About
             SetContentView(Resource.Layout.About);
             #region 设置ToolBar
             SetToolBar();
+            #endregion
+            #region 获取更新信息
+            string RawVersionInfo=httpRequest.GetGerResult("https://raw.githubusercontent.com/UMI64/UinfoWork/master/UinfoWork/Properties/AndroidManifest.xml");
+            string RawVersionDiscriptionInfo = httpRequest.GetGerResult(" https://raw.githubusercontent.com/UMI64/UinfoWork/master/UinfoWork/Resources/values/Strings.xml");
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(RawVersionInfo);
+            XmlNode rootNode = xmlDoc.SelectSingleNode("manifest");
+            string VersionCode=rootNode.Attributes["android:versionCode"].Value;
+            string VersionName= rootNode.Attributes["android:versionName"].Value;
+            xmlDoc.LoadXml(RawVersionDiscriptionInfo);
+            rootNode = xmlDoc.SelectSingleNode("resources");
+            string VersionDiscription = string.Empty;
+            foreach (XmlNode node in rootNode)
+            {
+                try
+                {
+                    if (node.Attributes["name"].Value == "Discription")
+                    {
+                        VersionDiscription = node.InnerText;
+                    }
+                }
+                catch
+                {
+                }
+            }
             #endregion
         }
 
