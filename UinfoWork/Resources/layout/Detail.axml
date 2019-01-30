@@ -1,0 +1,21 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<TextView
+		android:text="6A-101"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:id="@+id/RoomNum"
+		android:layout_width="wrap_content"
+		android:layout_height="30dp"
+		android:textColor="#111111"
+		android:textSize="20sp"
+		android:layout_gravity="center" />
+	<ListView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/Detail_ListView" />
+</LinearLayout> 

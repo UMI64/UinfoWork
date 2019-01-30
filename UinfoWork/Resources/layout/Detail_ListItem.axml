@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+	<RelativeLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="80dp"
+		android:background="#eeeeee">
+		<ImageView
+			android:id="@+id/TimeLine"
+			android:layout_width="30dp"
+			android:layout_height="match_parent"
+			android:background="#FFF"
+			android:scaleType="fitCenter"
+			android:layout_centerVertical="true" />
+		<TextView
+			android:text="6:00~22:00"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:id="@+id/CourseTime"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#111111"
+			android:textSize="15sp"
+			android:layout_toEndOf="@+id/TimeLine"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="4dp" />
+		<TextView
+			android:text="拖拉机原理"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:id="@+id/CourseName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#111111"
+			android:textSize="22sp"
+			android:layout_below="@+id/CourseTime"
+			android:layout_toEndOf="@+id/TimeLine"
+			android:layout_marginLeft="20dp" />
+		<TextView
+			android:text="刘清友"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:id="@+id/TeacherName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#111111"
+			android:textSize="15sp"
+			android:layout_toLeftOf ="@+id/CourseNum"
+			android:layout_below="@+id/CourseName"
+			android:layout_marginRight="20dp" />
+		<TextView
+			android:text="2333333"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:id="@+id/CourseNum"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#111111"
+			android:textSize="12sp"
+			android:layout_alignBottom="@+id/TeacherName"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="15dp" />
+	</RelativeLayout>
+</LinearLayout>

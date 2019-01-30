@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
+	<EditText
+		android:inputType="numberDecimal"
+		android:layout_width="55dp"
+		android:layout_height="40dp"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/year"
+		android:text="1"
+		android:gravity="center"
+		android:layout_toLeftOf="@+id/yearText"
+		android:layout_centerVertical="true" />
+	<TextView
+		android:text="年"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/yearText"
+		android:layout_toLeftOf="@+id/month"
+		android:layout_centerVertical="true" />
+	<EditText
+		android:inputType="numberDecimal"
+		android:layout_width="30dp"
+		android:layout_height="40dp"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/month"
+		android:layout_toLeftOf="@+id/monthText"
+		android:text="1"
+		android:gravity="center" 
+		android:layout_centerVertical="true" />
+	<TextView
+		android:text="月"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/monthText"
+		android:layout_toLeftOf="@+id/day"
+		android:layout_centerVertical="true" />
+	<EditText
+		android:inputType="numberDecimal"
+		android:layout_width="30dp"
+		android:layout_height="40dp"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/day"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true" 
+		android:text="1"
+		android:gravity="center"/>
+	<TextView
+		android:text="日  "
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/dayText"
+		android:layout_toRightOf="@+id/day"
+		android:layout_centerVertical="true" />
+	<EditText
+		android:inputType="numberDecimal"
+		android:layout_width="29dp"
+		android:layout_height="40dp"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/hour"
+		android:layout_toRightOf="@+id/dayText"
+		android:layout_centerVertical="true"
+		android:text="1"
+		android:gravity="center" />
+	<TextView
+		android:text="："
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/maohao"
+		android:layout_toRightOf="@+id/hour"
+		android:layout_centerVertical="true" />
+	<EditText
+		android:inputType="numberDecimal"
+		android:layout_width="29dp"
+		android:layout_height="40dp"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/minute"
+		android:layout_toRightOf="@+id/maohao"
+		android:text="1"
+		android:gravity="center"
+		android:layout_centerVertical="true" />
+	<Button
+		android:text="Button"
+		android:layout_width="40dp"
+		android:layout_height="35dp"
+		android:id="@+id/OKButon"
+		android:layout_alignParentRight="true" />
+</RelativeLayout>

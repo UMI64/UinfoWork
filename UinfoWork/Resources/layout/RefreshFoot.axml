@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/ll_end">
+		<View 
+		android:layout_height="0.7dp"
+		android:background="#686868"
+		android:layout_width="60dp"
+		android:layout_centerVertical="true"
+		android:layout_toLeftOf="@+id/dixianText"/>
+		<TextView
+		android:text="我是有底线的"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/dixianText"
+		android:gravity="center_vertical"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"/>
+		<View 
+		android:layout_height="0.7dp"
+		android:background="#686868"
+		android:layout_width="60dp"
+		android:layout_centerVertical="true"
+		android:layout_toRightOf="@+id/dixianText"/>
+	</RelativeLayout>
+	<ProgressBar
+		android:layout_width="30dp"
+		android:layout_height="wrap_content"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/pb_loading"
+		android:layout_toLeftOf="@+id/tv_loading"
+		android:layout_centerVertical="true" />
+	<TextView
+		android:text="正在加载"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/tv_loading"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:gravity="center_vertical" />
+</RelativeLayout>

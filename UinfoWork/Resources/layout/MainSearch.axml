@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/drawerLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/colorPrimaryBack">
+	<android.support.design.widget.CoordinatorLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/colorPrimaryBack">
+		<android.support.design.widget.AppBarLayout
+			android:layout_width="match_parent"
+			android:layout_height="260dp"
+			android:theme="@style/AppTheme.AppBarOverlay"
+			android:id="@+id/appBarLayout1">
+			<android.support.design.widget.CollapsingToolbarLayout
+				android:id="@+id/toolbar_layout"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:contentScrim="@color/colorPrimary"
+				android:background="@color/colorPrimaryBack"
+				app:layout_scrollFlags="scroll|exitUntilCollapsed">
+				<RelativeLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					app:layout_collapseMode="parallax"
+					app:layout_collapseParallaxMultiplier="0.15"
+					android:id="@+id/rrr"
+					android:background="@color/colorPrimaryBack"
+					android:layout_marginBottom="?attr/actionBarSize">
+					<TextView
+						android:text="空教室"
+						android:textSize="13sp"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:gravity="center"
+						android:textColor="#000000"
+						android:id="@+id/EmptyRoomSwitch"
+						android:layout_above="@+id/TimeText"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentBottom="true"
+						android:layout_marginLeft="40dp" />
+					<Button
+						android:layout_width="25dp"
+						android:layout_height="25dp"
+						android:layout_marginRight="8dp"
+						android:id="@+id/TimeLockButton"
+						android:background="@drawable/LockUp"
+						android:layout_alignParentRight="true"
+						android:layout_above="@+id/TimeText" />
+					<TextView
+						android:text="第11周"
+						android:textSize="25sp"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:gravity="center"
+						android:textColor="#000000"
+						android:id="@+id/WeekText"
+						android:layout_alignParentRight="true"
+						android:layout_above="@+id/TimeText"
+						android:layout_marginBottom="10dp"
+						android:layout_marginRight="40dp" />
+					<TextView
+						android:text="2018年11月50日 20:40"
+						android:textSize="19sp"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:textColor="#000000"
+						android:id="@+id/TimeText"
+						android:layout_alignParentBottom="true"
+						android:layout_alignParentRight="true"
+						android:layout_marginBottom="15dp"
+						android:layout_marginRight="40dp" />
+				</RelativeLayout>
+				<android.support.v7.widget.Toolbar
+					android:id="@+id/toolbar"
+					app:contentInsetStart="0dp"
+					app:layout_collapseMode="pin"
+					android:layout_width="match_parent"
+					android:layout_height="?attr/actionBarSize"
+					app:popupTheme="@style/AppTheme.PopupOverlay"
+					android:layout_gravity="bottom">
+					<include
+						layout="@layout/ToolBar" />
+				</android.support.v7.widget.Toolbar>
+			</android.support.design.widget.CollapsingToolbarLayout>
+		</android.support.design.widget.AppBarLayout>
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/RoomRecyclertView"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
+	</android.support.design.widget.CoordinatorLayout>
+	<include layout="@layout/LeftMenu" />
+</android.support.v4.widget.DrawerLayout>
