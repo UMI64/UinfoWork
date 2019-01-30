@@ -1,5 +1,6 @@
 ﻿using System.Xml;
-
+using Android.Content;
+using Android.Content.PM;
 namespace Uinfo.Updata
 {
     public class Verison
@@ -35,6 +36,47 @@ namespace Uinfo.Updata
 
             }
             return verison;
+        }
+        public static Verison GetAPKVersion(string absPath, Context context)
+        {
+            Verison version =new Verison();
+            PackageManager pm = context.PackageManager;
+            PackageInfo pkgInfo = pm.GetPackageArchiveInfo(absPath, PackageInfoFlags.Activities);
+            if (pkgInfo != null)
+            {
+                ApplicationInfo appInfo = pkgInfo.ApplicationInfo;
+                /* 必须加这两句，不然下面icon获取是default icon而不是应用包的icon */
+                appInfo.SourceDir = absPath;
+                appInfo.PublicSourceDir = absPath;
+                version.VersionCode = pkgInfo.VersionCode.ToString(); // 得到版本信息  
+                version.VersionName = pkgInfo.VersionName;
+            }
+            version.VersionDiscription = string.Empty;
+            return version;
+        }
+        public static Verison GetLocalVersion(Context context)
+        {
+            Verison version = new Verison();
+            // 获取packagemanager的实例
+            PackageManager packageManager = context.PackageManager;
+            // getPackageName()是你当前类的包名
+            PackageInfo packInfo = packageManager.GetPackageInfo(context.PackageName, 0);
+            version.VersionCode = packInfo.VersionCode.ToString();
+            version.VersionName = packInfo.VersionName;
+            version.VersionDiscription = context.GetString(Resource.String.Discription);
+            return version;
+        }
+        public static bool operator < (Verison v1, Verison v2)
+        {
+            int.TryParse(v1.VersionCode.ToString(), out int V1);
+            int.TryParse(v1.VersionCode.ToString(),out int V2);
+            return V1 < V2;
+        }
+        public static bool operator >(Verison v1, Verison v2)
+        {
+            int.TryParse(v1.VersionCode.ToString(), out int V1);
+            int.TryParse(v1.VersionCode.ToString(), out int V2);
+            return V1 > V2;
         }
     }
 }

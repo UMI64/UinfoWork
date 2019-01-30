@@ -16,7 +16,8 @@ namespace Uinfo.About
     {
         List<AboutItem> AboutMenu = new List<AboutItem>();
         RecyclerView.Adapter Aboutlist_adapter;
-        Verison verison=new Verison();
+        Verison NewVerison=new Verison();
+        Verison LocalVerison;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,7 +28,8 @@ namespace Uinfo.About
             #region 获取更新信息
             new LoadVerisonTask(this).Execute(5);
             #endregion
-            AboutMenu.Add(new AboutItem("版本", ""));
+            LocalVerison = Verison.GetLocalVersion(this);
+            AboutMenu.Add(new AboutItem("版本", "版本名 " + LocalVerison.VersionName + "\r\n" + "版本号 " + LocalVerison.VersionCode));
             RecyclerView AboutRecyclertView = FindViewById<RecyclerView>(Resource.Id.AboutRecyclertView);//绑定链表
             Aboutlist_adapter = new AboutRecyclerViewAdapter(AboutMenu, this);//创建适配器
             AboutRecyclertView.SetLayoutManager(new LinearLayoutManager(this));//
@@ -35,13 +37,13 @@ namespace Uinfo.About
             //点击选项后的操作
             ((AboutRecyclerViewAdapter)Aboutlist_adapter).OnClickEventHandler += (Title) =>
             {
-                if (Title == "版本" && verison.VersionCode != null)
+                if (Title == "版本" && NewVerison.VersionCode != null)
                 {
                     Intent intent = new Intent(this, typeof(UpdataActivity));
                     //启动
-                    intent.PutExtra("VersionCode", verison.VersionCode.ToString());
-                    intent.PutExtra("VersionName", verison.VersionName.ToString());
-                    intent.PutExtra("VersionDiscription", verison.VersionDiscription.ToString());
+                    intent.PutExtra("VersionCode", NewVerison.VersionCode.ToString());
+                    intent.PutExtra("VersionName", NewVerison.VersionName.ToString());
+                    intent.PutExtra("VersionDiscription", NewVerison.VersionDiscription.ToString());
                     StartActivity(intent);
                 }
             };
@@ -54,7 +56,11 @@ namespace Uinfo.About
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowTitleEnabled(false);
         }
-        //Toolbar的事件---返回
+        /// <summary>
+        /// Toolbar的事件---返回
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
@@ -81,18 +87,9 @@ namespace Uinfo.About
             protected override void OnPostExecute(Verison result)
             {
                 base.OnPostExecute(result);
-                About.verison.VersionCode = result.VersionCode;
-                About.verison.VersionName = result.VersionName;
-                About.verison.VersionDiscription = result.VersionDiscription;
-                    
-                int count = 0;
-                foreach (var menu in About.AboutMenu)
-                {
-                    if(menu.Title== "版本") break;
-                    count++;
-                }
-                About.AboutMenu[count].Text = ("版本名 " + result.VersionName + "\r\n" + "版本号 " + result.VersionCode);
-                About.Aboutlist_adapter.NotifyDataSetChanged();
+                About.NewVerison.VersionCode = result.VersionCode;
+                About.NewVerison.VersionName = result.VersionName;
+                About.NewVerison.VersionDiscription = result.VersionDiscription;
             }
         }
 

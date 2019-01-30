@@ -78,41 +78,6 @@ namespace Uinfo.Updata
             }
         }
         /// <summary>
-        /// 获取版本代码
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public static int GetVersionCode(Context context)
-        {
-            // 获取packagemanager的实例
-            PackageManager packageManager = context.PackageManager;
-            // getPackageName()是你当前类的包名
-            PackageInfo packInfo = packageManager.GetPackageInfo(context.PackageName, 0);
-            int version = packInfo.VersionCode;
-            return version;
-        }
-        /// <summary>
-        /// 获取apk包的版本代码
-        /// </summary>
-        /// <param name="absPath">apk包的绝对路径 </param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public static int GetAPKVersionCode(string absPath, Context context)
-        {
-            int version = 0;
-            PackageManager pm = context.PackageManager;
-            PackageInfo pkgInfo = pm.GetPackageArchiveInfo(absPath, PackageInfoFlags.Activities);
-            if (pkgInfo != null)
-            {
-                ApplicationInfo appInfo = pkgInfo.ApplicationInfo;
-                /* 必须加这两句，不然下面icon获取是default icon而不是应用包的icon */
-                appInfo.SourceDir = absPath;
-                appInfo.PublicSourceDir = absPath;
-                version = pkgInfo.VersionCode; // 得到版本信息  
-            }
-            return version;
-        }
-        /// <summary>
         ///下载apk
         /// </summary>
         /// <param name="context">上下文对象</param>
@@ -125,9 +90,9 @@ namespace Uinfo.Updata
             File file = new File(Uri.Parse(fileSavePath).Path);
             if (file.Exists())//如果文件存
             {
-                int NowVerison = GetVersionCode(this);
-                int APKVerison = GetAPKVersionCode(file.AbsolutePath, this);
-                if (NowVerison < APKVerison)//版本小于则安装
+                Verison LocalVerison = Verison.GetLocalVersion(this);
+                Verison APKVerison =Verison.GetAPKVersion(file.AbsolutePath, this);
+                if (LocalVerison < APKVerison)//版本小于则安装
                 {
                     OpenAPK(fileSavePath);
                     return;//退出下载
