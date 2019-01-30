@@ -69,6 +69,7 @@
     <Compile Include="Activity_Search\SearchEditText.cs" />
     <Compile Include="Activity_Search\SearchRoom.cs" />
     <Compile Include="Activity_Updata\UpdataActivity.cs" />
+    <Compile Include="Activity_Updata\Verison.cs" />
     <Compile Include="Tools\HttpUtils.cs" />
     <Compile Include="Activity_Search\MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -244,7 +245,7 @@
     <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\About_Item.axml">
+    <AndroidResource Include="Resources\layout\AboutListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

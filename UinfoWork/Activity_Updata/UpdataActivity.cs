@@ -11,7 +11,7 @@ using Android.Provider;
 using Android.Content.PM;
 using Android.Net;
 
-namespace Uinfo.Activity_Updata
+namespace Uinfo.Updata
 {
     [Activity(Label = "UpdataActivity")]
     public class UpdataActivity : AppCompatActivity
@@ -19,10 +19,14 @@ namespace Uinfo.Activity_Updata
         long DownloadID = 0;
         readonly string APKname = "Uinfo.apk";
         Intent StartInstallintent;
+        Verison NewVerison=new Verison();
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Updata);
+            NewVerison.VersionCode = Intent.GetCharSequenceExtra("VersionCode");
+            NewVerison.VersionName = Intent.GetCharSequenceExtra("VersionName");
+            NewVerison.VersionDiscription = Intent.GetCharSequenceExtra("VersionDiscription");
             #region 设置ToolBar
             SetToolBar();
             #endregion
