@@ -37,7 +37,7 @@ namespace Uinfo.About
             //点击选项后的操作
             ((AboutRecyclerViewAdapter)Aboutlist_adapter).OnClickEventHandler += (Title) =>
             {
-                if (Title == "版本" && NewVerison.VersionCode != null)
+                if (Title == "版本" && NewVerison.VersionCode != null && NewVerison> LocalVerison)
                 {
                     Intent intent = new Intent(this, typeof(UpdataActivity));
                     //启动
