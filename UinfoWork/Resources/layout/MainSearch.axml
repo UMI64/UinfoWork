@@ -23,7 +23,6 @@
 				android:background="@color/colorPrimaryBack"
 				app:layout_scrollFlags="scroll|exitUntilCollapsed">
 				<RelativeLayout
-					android:orientation="horizontal"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					app:layout_collapseMode="parallax"
@@ -31,20 +30,34 @@
 					android:id="@+id/rrr"
 					android:background="@color/colorPrimaryBack"
 					android:layout_marginBottom="?attr/actionBarSize">
-					<TextView
-						android:text="空教室"
-						android:textSize="13sp"
-						android:textAppearance="?android:attr/textAppearanceSmall"
+					<LinearLayout
+						android:orientation="horizontal"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_gravity="center"
-						android:gravity="center"
-						android:textColor="#000000"
-						android:id="@+id/EmptyRoomSwitch"
 						android:layout_above="@+id/TimeText"
 						android:layout_alignParentLeft="true"
 						android:layout_alignParentBottom="true"
-						android:layout_marginLeft="40dp" />
+						android:layout_marginLeft="40dp"
+						android:id="@+id/EmptyRoomSwitch">
+						<TextView
+							android:text="空教室"
+							android:textSize="13sp"
+							android:textAppearance="?android:attr/textAppearanceSmall"
+							android:layout_width="wrap_content"
+							android:layout_height="23dp"
+							android:layout_gravity="center_vertical"
+							android:gravity="center"
+							android:textColor="#000000"
+							android:id="@+id/EmptyRoomText"/>
+						<ImageView
+							android:src="@drawable/EmptyRoomSwitch"
+							android:layout_width="18dp"
+							android:layout_height="18dp"
+							android:layout_marginLeft="8dp"
+							android:layout_gravity="center_vertical"
+							android:layout_toRightOf="@+id/EmptyRoomText"
+							android:layout_alignBottom="@+id/EmptyRoomText"  />
+					</LinearLayout>
 					<Button
 						android:layout_width="25dp"
 						android:layout_height="25dp"

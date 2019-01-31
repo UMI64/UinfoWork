@@ -44,7 +44,8 @@ namespace Uinfo
             }
         }
 
-        TextView EmptyRoomSwitch;
+        LinearLayout EmptyRoomSwitch;
+        TextView EmptyRoomText;
         Button TimeLockButton;
         TextView WeekText;
         TextView TimeText;
@@ -54,7 +55,7 @@ namespace Uinfo
             this.searchRoom = searchRoom;
             this.roomlist_adapter = roomlist_adapter;
             #region 中二病
-            TextView 中二病 = EmptyRoomSwitch = ((Activity)context).FindViewById<TextView>(Resource.Id.中二病Text);
+            TextView 中二病 = ((Activity)context).FindViewById<TextView>(Resource.Id.中二病Text);
             中二病.Click += (sender, args) =>
             {
                 if (中二病Flag)
@@ -79,18 +80,19 @@ namespace Uinfo
             timeChangeReceiver.condition = this;
             #endregion
             #region  空教室
-            EmptyRoomSwitch = ((Activity)context).FindViewById<TextView>(Resource.Id.EmptyRoomSwitch);
+            EmptyRoomSwitch = ((Activity)context).FindViewById<LinearLayout>(Resource.Id.EmptyRoomSwitch);
+            EmptyRoomText = ((Activity)context).FindViewById<TextView>(Resource.Id.EmptyRoomText);
             EmptyRoomSwitch.Click += (sender, args) =>
             {
                 if (EmptyRoomFlag)
                 {
                     EmptyRoomFlag = false;
-                    EmptyRoomSwitch.Text = "全部教室";
+                    EmptyRoomText.Text = "全部教室";
                 }
                 else
                 {
                     EmptyRoomFlag = true;
-                    EmptyRoomSwitch.Text = "空教室";
+                    EmptyRoomText.Text = "空教室";
                 }
                 searchRoom.ResetShowDatas(this);//显示数据应用更改
                 roomlist_adapter.NotifyDataSetChanged();//显示数据刷新
