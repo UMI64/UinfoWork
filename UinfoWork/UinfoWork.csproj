@@ -258,7 +258,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Description.txt" />
     <AndroidResource Include="Resources\layout\UpdataDownloadDialog.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
