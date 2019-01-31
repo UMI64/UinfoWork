@@ -71,7 +71,7 @@ namespace Uinfo.About
         }
 
         /// <summary>
-        /// 初次加载任务
+        /// 获取最新APK任务
         /// </summary>
         public class LoadVerisonTask : AsyncTask<string, int, Verison>
         {
@@ -92,9 +92,7 @@ namespace Uinfo.About
                 About.NewVerison.VersionDiscription = result.VersionDiscription;
             }
         }
-
     }
-
     public class AboutItem
     {
         public string Title = string.Empty;

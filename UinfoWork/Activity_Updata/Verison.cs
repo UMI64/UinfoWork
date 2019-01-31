@@ -39,7 +39,7 @@ namespace Uinfo.Updata
         }
         public static Verison GetAPKVersion(string absPath, Context context)
         {
-            Verison version =new Verison();
+            Verison version = new Verison();
             PackageManager pm = context.PackageManager;
             PackageInfo pkgInfo = pm.GetPackageArchiveInfo(absPath, PackageInfoFlags.Activities);
             if (pkgInfo != null)
@@ -50,6 +50,11 @@ namespace Uinfo.Updata
                 appInfo.PublicSourceDir = absPath;
                 version.VersionCode = pkgInfo.VersionCode.ToString(); // 得到版本信息  
                 version.VersionName = pkgInfo.VersionName;
+            }
+            else
+            {
+                version.VersionCode = "0";
+                version.VersionName = "0";
             }
             version.VersionDiscription = string.Empty;
             return version;
@@ -66,16 +71,16 @@ namespace Uinfo.Updata
             version.VersionDiscription = context.GetString(Resource.String.Discription);
             return version;
         }
-        public static bool operator < (Verison v1, Verison v2)
+        public static bool operator <(Verison v1, Verison v2)
         {
             int.TryParse(v1.VersionCode.ToString(), out int V1);
-            int.TryParse(v1.VersionCode.ToString(),out int V2);
+            int.TryParse(v2.VersionCode.ToString(), out int V2);
             return V1 < V2;
         }
         public static bool operator >(Verison v1, Verison v2)
         {
             int.TryParse(v1.VersionCode.ToString(), out int V1);
-            int.TryParse(v1.VersionCode.ToString(), out int V2);
+            int.TryParse(v2.VersionCode.ToString(), out int V2);
             return V1 > V2;
         }
     }

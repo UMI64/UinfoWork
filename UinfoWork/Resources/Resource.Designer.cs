@@ -2438,6 +2438,9 @@ namespace Uinfo
 			// aapt resource value: 0x7f0900e3
 			public const int SearchButton = 2131296483;
 			
+			// aapt resource value: 0x7f0900e6
+			public const int StatueText = 2131296486;
+			
 			// aapt resource value: 0x7f0900b2
 			public const int TeacherName = 2131296434;
 			
@@ -2587,6 +2590,9 @@ namespace Uinfo
 			
 			// aapt resource value: 0x7f0900a1
 			public const int container = 2131296417;
+			
+			// aapt resource value: 0x7f0900e7
+			public const int contentLoadingProgressBar1 = 2131296487;
 			
 			// aapt resource value: 0x7f090066
 			public const int contentPanel = 2131296358;
@@ -2753,8 +2759,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f090098
 			public const int maohao = 2131296408;
 			
-			// aapt resource value: 0x7f0900e7
-			public const int masked = 2131296487;
+			// aapt resource value: 0x7f0900ea
+			public const int masked = 2131296490;
 			
 			// aapt resource value: 0x7f0900c6
 			public const int media_actions = 2131296454;
@@ -2821,6 +2827,9 @@ namespace Uinfo
 			
 			// aapt resource value: 0x7f090007
 			public const int progress_horizontal = 2131296263;
+			
+			// aapt resource value: 0x7f0900e8
+			public const int progressbar = 2131296488;
 			
 			// aapt resource value: 0x7f090075
 			public const int radio = 2131296373;
@@ -3035,8 +3044,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900e6
-			public const int visible = 2131296486;
+			// aapt resource value: 0x7f0900e9
+			public const int visible = 2131296489;
 			
 			// aapt resource value: 0x7f09003c
 			public const int withText = 2131296316;
@@ -3333,6 +3342,9 @@ namespace Uinfo
 			
 			// aapt resource value: 0x7f040049
 			public const int Updata = 2130968649;
+			
+			// aapt resource value: 0x7f04004a
+			public const int UpdataDownloadDialog = 2130968650;
 			
 			static Layout()
 			{

@@ -4,22 +4,23 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Android.Content;
-using Java.IO;
 using Android.Database;
 using Android.Support.V4.Content;
 using Android.Provider;
 using Android.Content.PM;
 using Android.Net;
+using Java.Net;
+using System.IO;
 
 namespace Uinfo.Updata
 {
     [Activity(Label = "UpdataActivity")]
     public class UpdataActivity : AppCompatActivity
     {
-        long DownloadID = 0;
-        readonly string APKname = "Uinfo.apk";
+        readonly static string APKname = "Uinfo.apk";
         Intent StartInstallintent;
-        Verison NewVerison=new Verison();
+        Verison NewVerison = new Verison();
+        TextView StatueText;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,6 +28,8 @@ namespace Uinfo.Updata
             NewVerison.VersionCode = Intent.GetCharSequenceExtra("VersionCode");
             NewVerison.VersionName = Intent.GetCharSequenceExtra("VersionName");
             NewVerison.VersionDiscription = Intent.GetCharSequenceExtra("VersionDiscription");
+
+            StatueText = FindViewById<TextView>(Resource.Id.StatueText);
             #region 设置ToolBar
             SetToolBar();
             #endregion
@@ -34,9 +37,126 @@ namespace Uinfo.Updata
             Button DownloadButton = FindViewById<Button>(Resource.Id.DownloadButton);
             DownloadButton.Click += (o, e) =>
             {
-                DownLoadApk("Uinfo", "更新", "https://github.com/UMI64/UinfoWork/raw/master/UinfoWork.UinfoWork.apk");
+                DownloadTask downloadTask = new DownloadTask(this);
+                downloadTask.Execute("https://github.com/UMI64/UinfoWork/raw/master/UinfoWork.UinfoWork.apk");
             };
             #endregion
+        }
+        public class DownloadTask : AsyncTask<string, int, string>
+        {
+            static readonly string Success = "Success";
+            static readonly string Failure = "Failure";
+            string fileSavePath;
+            string filePath;
+            UpdataActivity updataActivity;
+            bool IsCancel = false;
+            ProgressBar progressbar;
+            Dialog dialog;
+            public DownloadTask(UpdataActivity updataActivity)
+            {
+                this.updataActivity = updataActivity;
+                fileSavePath = (string)updataActivity.GetExternalFilesDir(Environment.DirectoryDownloads);
+                filePath = Path.Combine(fileSavePath, APKname);
+            }
+            protected override void OnPreExecute()
+            {
+                base.OnPreExecute();
+                Android.Support.V7.App.AlertDialog.Builder builder = new Android.Support.V7.App.AlertDialog.Builder(updataActivity);
+                builder.SetTitle("下载中");
+                View view = LayoutInflater.From(updataActivity).Inflate(Resource.Layout.UpdataDownloadDialog, null);
+                progressbar = (ProgressBar)view.FindViewById(Resource.Id.progressbar);
+                builder.SetView(view);
+                builder.SetNegativeButton("取消",new DownloadDialogClickListener(updataActivity,this));
+                dialog = builder.Create();
+                dialog.Show();
+            }
+            private class DownloadDialogClickListener : Java.Lang.Object, IDialogInterfaceOnClickListener
+            {
+                readonly Context mcontext;
+                DownloadTask task;
+                public DownloadDialogClickListener(Context context, DownloadTask task)
+                {
+                    mcontext = context;
+                    this.task = task;
+                }
+                public void OnClick(IDialogInterface dialog, int which)
+                {
+                    dialog.Cancel();
+                    task.IsCancel = true;
+                    task.Cancel(true);
+                }
+            }
+            protected override void OnProgressUpdate(params int[] values)
+            {
+                base.OnProgressUpdate(values);
+                updataActivity.StatueText.Text = values[0].ToString();
+                progressbar.SetProgress(values[0],true);
+            }
+            protected override void OnCancelled()
+            {
+                base.OnCancelled();
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+            }
+            protected override string RunInBackground(string[] @params)
+            {
+                string Url = @params[0];
+                try
+                {
+                    if (!Directory.Exists(fileSavePath))
+                        Directory.CreateDirectory(fileSavePath);
+                    if (File.Exists(filePath))
+                    {
+                        Verison LocalVerison = Verison.GetLocalVersion(updataActivity);
+                        Verison APKVerison = Verison.GetAPKVersion(filePath, updataActivity);
+                        if (LocalVerison < APKVerison)//版本小于则安装
+                            return Success;
+                        else
+                        {
+                            File.Delete(filePath);
+                        }
+                        //大于等于则删除
+                        //继续下载
+                    }
+                    System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(Url);
+
+                    System.Net.WebResponse response = request.GetResponse();
+                    Stream inputStream = response.GetResponseStream();
+                    long length = inputStream.Length;
+                    int count = 0;
+                    byte[] buffer = new byte[1024];
+                    Stream outStream = File.Create(filePath);
+                    Stream inStream = response.GetResponseStream();
+                    while (!IsCancel)
+                    {
+                        int ReadLength = 0;
+                        ReadLength = inStream.Read(buffer, 0, buffer.Length);
+                        if (ReadLength > 0)
+                            outStream.Write(buffer, 0, ReadLength);
+                        else
+                            break;
+                        count += ReadLength;
+                        int Progress = (int)(((float)count / length) * 100);
+                        // 更新进度条
+                        OnProgressUpdate(Progress);
+                    }
+                    outStream.Close();
+                    inStream.Close();
+                }
+                catch (System.Exception e)
+                {
+                    return e.Message;
+                }
+                if (IsCancel) return Failure;
+                return Success;
+            }
+            protected override void OnPostExecute(string result)
+            {
+                base.OnPostExecute(result);
+                if (result == Success)
+                    updataActivity.OpenAPK(filePath);
+                dialog.Cancel();
+            }
         }
         /// <summary>
         /// 设置ToolBar
@@ -78,115 +198,6 @@ namespace Uinfo.Updata
             }
         }
         /// <summary>
-        ///下载apk
-        /// </summary>
-        /// <param name="context">上下文对象</param>
-        /// <param name="title">程序的名字</param>
-        /// <param name="url">下载的url地址</param>
-        /// <returns></returns>
-        public void DownLoadApk(string title, string Description, string url)
-        {
-            var fileSavePath = Uri.FromFile(new File(GetExternalFilesDir(Environment.DirectoryDownloads).AbsolutePath)) + "/" + APKname;
-            File file = new File(Uri.Parse(fileSavePath).Path);
-            if (file.Exists())//如果文件存
-            {
-                Verison LocalVerison = Verison.GetLocalVersion(this);
-                Verison APKVerison =Verison.GetAPKVersion(file.AbsolutePath, this);
-                if (LocalVerison < APKVerison)//版本小于则安装
-                {
-                    OpenAPK(fileSavePath);
-                    return;//退出下载
-                }
-                else
-                    file.Delete();
-                //大于等于则删除
-                //继续下载
-            }
-            DownloadManager.Request request = new DownloadManager.Request(Uri.Parse(url));
-            /*
-            ConnectivityManager cm = (ConnectivityManager)context.GetSystemService(Context.ConnectivityService);
-            if (cm.ActiveNetworkInfo.Type == ConnectivityType.Mobile)
-                request.SetAllowedNetworkTypes(DownloadNetwork.Mobile);
-            else
-                request.SetAllowedNetworkTypes(DownloadNetwork.Wifi);
-                */
-            request.SetAllowedNetworkTypes(DownloadNetwork.Wifi | DownloadNetwork.Mobile);
-            request.SetAllowedOverMetered(true);
-            request.SetAllowedOverRoaming(false);
-            request.SetVisibleInDownloadsUi(true);
-            request.SetDestinationInExternalFilesDir(this, Environment.DirectoryDownloads, APKname);
-            request.AllowScanningByMediaScanner();
-            request.SetNotificationVisibility(DownloadVisibility.Visible);
-
-            // 设置 Notification 信息
-            request.SetTitle(title);
-            //request.SetDescription(Description);
-            request.SetMimeType("application/vnd.android.package-archive");
-            //如果已经启动过下载
-            if (DownloadID != 0)
-            {
-                DownloadManager.Query query = new DownloadManager.Query();
-                query.SetFilterById(DownloadID);
-                ICursor cursor = ((DownloadManager)GetSystemService(DownloadService)).InvokeQuery(query);
-                if (cursor.MoveToFirst())
-                {
-                    var status = (DownloadStatus)cursor.GetInt(cursor.GetColumnIndex(DownloadManager.ColumnStatus));
-                    if (status != DownloadStatus.Successful || status != DownloadStatus.Failed) return;//下载成功或者失败才能继续这次下载
-                }
-            }
-            // 实例化DownloadManager 对象
-            DownloadManager downloadManager = (DownloadManager)GetSystemService(DownloadService);
-            DownloadID = downloadManager.Enqueue(request);//开始下载
-            Setlistener(DownloadID);//设置下载监听
-        }
-        /// <summary>
-        /// 注册广播监听系统的下载完成事件
-        /// </summary>
-        /// <param name="Id"></param>
-        private void Setlistener(long Id)
-        {
-            IntentFilter intentFilter = new IntentFilter(DownloadManager.ActionDownloadComplete);
-            DownloadReceiver broadcastReceiver = new DownloadReceiver(this, Id);
-            RegisterReceiver(broadcastReceiver, intentFilter);
-        }
-        /// <summary>
-        /// 监听下载完成类
-        /// </summary>
-        class DownloadReceiver : BroadcastReceiver
-        {
-            long Id;
-            UpdataActivity updata;
-            public DownloadReceiver(UpdataActivity updata, long Id)
-            {
-                this.updata = updata;
-                this.Id = Id;
-            }
-            public override void OnReceive(Context context, Intent intent)
-            {
-                DownloadManager manager = (DownloadManager)context.GetSystemService(Context.DownloadService);
-                // 这里是通过下面这个方法获取下载的id，
-                long ID = intent.GetLongExtra(DownloadManager.ExtraDownloadId, -1);
-                // 这里把传递的id和广播中获取的id进行对比是不是我们下载apk的那个id，如果是的话，就开始获取这个下载的路径
-                if (ID == Id)
-                {
-                    DownloadManager.Query query = new DownloadManager.Query();
-                    query.SetFilterById(Id);
-                    ICursor cursor = manager.InvokeQuery(query);
-                    if (cursor.MoveToFirst())
-                    {
-                        // 获取文件下载路径
-                        string fileName = cursor.GetString(cursor.GetColumnIndex(DownloadManager.ColumnLocalUri));
-                        // 如果文件名不为空，说明文件已存在,则进行自动安装apk
-                        if (fileName != null)
-                        {
-                            updata.OpenAPK(fileName);
-                        }
-                    }
-                    cursor.Close();
-                }
-            }
-        }
-        /// <summary>
         /// 分安卓版本打开apk
         /// </summary>
         /// <param name="fileSavePath"></param>
@@ -212,7 +223,7 @@ namespace Uinfo.Updata
         /// <param name="fileSavePath"></param>
         private void InstallPackge(string fileSavePath)
         {
-            File file = new File(Uri.Parse(fileSavePath).Path);
+            Java.IO.File file = new Java.IO.File(Uri.Parse(fileSavePath).Path);
             StartInstallintent = new Intent(Intent.ActionView);
             StartInstallintent.SetFlags(ActivityFlags.NewTask);
             var data = Uri.FromFile(file);
@@ -225,12 +236,12 @@ namespace Uinfo.Updata
         /// <param name="fileSavePath"></param>
         private void InstallPackgeAPI26(string fileSavePath)
         {
-            File file = new File(Uri.Parse(fileSavePath).Path);
+            Java.IO.File file = new Java.IO.File(Uri.Parse(fileSavePath).Path);
             string filePath = file.AbsolutePath;
             StartInstallintent = new Intent(Intent.ActionView);
             StartInstallintent.SetFlags(ActivityFlags.NewTask);
             var provider = PackageName + ".fileprovider";
-            Uri data = FileProvider.GetUriForFile(this, provider, new File(filePath));
+            Uri data = FileProvider.GetUriForFile(this, provider, new Java.IO.File(filePath));
             StartInstallintent.SetFlags(ActivityFlags.GrantReadUriPermission);// 给目标应用一个临时授权
             StartInstallintent.SetDataAndType(data, "application/vnd.android.package-archive");
             StartActivity(StartInstallintent);
@@ -241,12 +252,12 @@ namespace Uinfo.Updata
         /// <param name="fileSavePath"></param>
         private void InstallPackgeAPI28(string fileSavePath)
         {
-            File file = new File(Uri.Parse(fileSavePath).Path);
+            Java.IO.File file = new Java.IO.File(Uri.Parse(fileSavePath).Path);
             string filePath = file.AbsolutePath;
             StartInstallintent = new Intent(Intent.ActionView);
             StartInstallintent.SetFlags(ActivityFlags.NewTask);
             var provider = PackageName + ".fileprovider";
-            Uri data = FileProvider.GetUriForFile(this, provider, new File(filePath));
+            Uri data = FileProvider.GetUriForFile(this, provider, new Java.IO.File(filePath));
             StartInstallintent.SetFlags(ActivityFlags.GrantReadUriPermission);// 给目标应用一个临时授权
             StartInstallintent.SetDataAndType(data, "application/vnd.android.package-archive");
             ChickPermission();
@@ -291,5 +302,4 @@ namespace Uinfo.Updata
             }
         }
     }
-
 }
