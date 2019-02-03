@@ -10,6 +10,8 @@ using Android.Content.PM;
 using Android.Net;
 using System.IO;
 using System.Timers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace Uinfo.Updata
 {
     [Activity(Label = "UpdataActivity")]
@@ -28,8 +30,18 @@ namespace Uinfo.Updata
             #region 设置ToolBar
             SetToolBar();
             #endregion
+            TextView VerisonName = FindViewById<TextView>(Resource.Id.VerisonName);
+            VerisonName.Text = NewVerison.VersionName;
+
+            TextView VerisonDiscription = FindViewById<TextView>(Resource.Id.VerisonDiscription);
+            JObject jObject = (JObject)JsonConvert.DeserializeObject(NewVerison.VersionDiscription);
+            JArray jArray = (JArray)jObject["VerisonDiscription"];
+            foreach (var item in jArray)
+            {
+                VerisonDiscription.Text+= item.ToString()+"\r\n";
+            }
             #region 下载更新按钮
-            Button DownloadButton = FindViewById<Button>(Resource.Id.DownloadButton);
+            Button DownloadButton = FindViewById<Button>(Resource.Id.DownloadButton); 
             DownloadButton.Click += (o, e) =>
             {
                 DownloadTask downloadTask = new DownloadTask(this);
@@ -182,7 +194,7 @@ namespace Uinfo.Updata
         /// </summary>
         private void SetToolBar()
         {
-            SupportActionBar.Subtitle = "更新";
+            SupportActionBar.Title = "更新";
             SupportActionBar.SetDisplayShowTitleEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);

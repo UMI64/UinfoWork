@@ -81,7 +81,7 @@ namespace Uinfo.Updata
         {
             int.TryParse(v1.VersionCode.ToString(), out int V1);
             int.TryParse(v2.VersionCode.ToString(), out int V2);
-            return V1 > V2;
+            return true;
         }
     }
 }

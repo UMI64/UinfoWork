@@ -52,7 +52,7 @@ namespace Uinfo.About
         }
         private void SetToolBar()
         {
-            SupportActionBar.Subtitle = "关于";
+            SupportActionBar.Title = "关于";
             SupportActionBar.SetDisplayShowTitleEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);

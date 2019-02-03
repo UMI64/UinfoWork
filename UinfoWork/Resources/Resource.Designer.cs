@@ -2375,6 +2375,9 @@ namespace Uinfo
 			// aapt resource value: 0x7f090032
 			public const int ALT = 2131296306;
 			
+			// aapt resource value: 0x7f0900e7
+			public const int APPName = 2131296487;
+			
 			// aapt resource value: 0x7f09008e
 			public const int AboutRecyclertView = 2131296398;
 			
@@ -2411,11 +2414,11 @@ namespace Uinfo
 			// aapt resource value: 0x7f0900af
 			public const int Detail_ListView = 2131296431;
 			
-			// aapt resource value: 0x7f0900e8
-			public const int DownloadButton = 2131296488;
-			
 			// aapt resource value: 0x7f0900ea
-			public const int Downloads = 2131296490;
+			public const int DownloadButton = 2131296490;
+			
+			// aapt resource value: 0x7f0900ec
+			public const int Downloads = 2131296492;
 			
 			// aapt resource value: 0x7f0900bc
 			public const int EmptyRoomSwitch = 2131296444;
@@ -2437,9 +2440,6 @@ namespace Uinfo
 			
 			// aapt resource value: 0x7f0900df
 			public const int MonthList = 2131296479;
-			
-			// aapt resource value: 0x7f0900e7
-			public const int NewFuction = 2131296487;
 			
 			// aapt resource value: 0x7f09009b
 			public const int OKButon = 2131296411;
@@ -2471,8 +2471,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f0900d9
 			public const int TimeLayout = 2131296473;
 			
-			// aapt resource value: 0x7f0900eb
-			public const int TimeLeft = 2131296491;
+			// aapt resource value: 0x7f0900ed
+			public const int TimeLeft = 2131296493;
 			
 			// aapt resource value: 0x7f0900b0
 			public const int TimeLine = 2131296432;
@@ -2482,6 +2482,12 @@ namespace Uinfo
 			
 			// aapt resource value: 0x7f0900bb
 			public const int TimeText = 2131296443;
+			
+			// aapt resource value: 0x7f0900e9
+			public const int VerisonDiscription = 2131296489;
+			
+			// aapt resource value: 0x7f0900e8
+			public const int VerisonName = 2131296488;
 			
 			// aapt resource value: 0x7f0900b8
 			public const int VersionCodeText = 2131296440;
@@ -2780,8 +2786,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f090099
 			public const int maohao = 2131296409;
 			
-			// aapt resource value: 0x7f0900ed
-			public const int masked = 2131296493;
+			// aapt resource value: 0x7f0900ef
+			public const int masked = 2131296495;
 			
 			// aapt resource value: 0x7f0900c8
 			public const int media_actions = 2131296456;
@@ -2849,8 +2855,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f090007
 			public const int progress_horizontal = 2131296263;
 			
-			// aapt resource value: 0x7f0900e9
-			public const int progressbar = 2131296489;
+			// aapt resource value: 0x7f0900eb
+			public const int progressbar = 2131296491;
 			
 			// aapt resource value: 0x7f090075
 			public const int radio = 2131296373;
@@ -3065,8 +3071,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900ec
-			public const int visible = 2131296492;
+			// aapt resource value: 0x7f0900ee
+			public const int visible = 2131296494;
 			
 			// aapt resource value: 0x7f09003c
 			public const int withText = 2131296316;
