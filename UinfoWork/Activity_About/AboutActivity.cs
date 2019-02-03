@@ -37,7 +37,7 @@ namespace Uinfo.About
             //点击选项后的操作
             ((AboutRecyclerViewAdapter)Aboutlist_adapter).OnClickEventHandler += (Title) =>
             {
-                if (Title == "版本" && NewVerison.VersionCode != null && NewVerison> LocalVerison)
+                if (Title == "版本" && AboutMenu[0].RedPointVisibility)
                 {
                     Intent intent = new Intent(this, typeof(UpdataActivity));
                     //启动
@@ -90,6 +90,8 @@ namespace Uinfo.About
                 About.NewVerison.VersionCode = result.VersionCode;
                 About.NewVerison.VersionName = result.VersionName;
                 About.NewVerison.VersionDiscription = result.VersionDiscription;
+                About.AboutMenu[0].RedPointVisibility = result > Verison.GetLocalVersion(About);
+                About.Aboutlist_adapter.NotifyDataSetChanged();
             }
         }
     }
@@ -97,6 +99,7 @@ namespace Uinfo.About
     {
         public string Title = string.Empty;
         public string Text = string.Empty;
+        public bool RedPointVisibility = false;
         public AboutItem(string Title, string Text)
         {
             this.Title = Title;
@@ -121,6 +124,7 @@ namespace Uinfo.About
                 MyViewHolder myViewHolder = holder as MyViewHolder;
                 myViewHolder.AboutTitle.Text = data[position].Title;
                 myViewHolder.AboutText.Text = data[position].Text;
+                myViewHolder.RedPoint.Visibility = data[position].RedPointVisibility ? ViewStates.Visible : ViewStates.Gone;
                 myViewHolder.ItemView.SetOnClickListener(this);
             }
         }
@@ -151,10 +155,12 @@ namespace Uinfo.About
     {
         public TextView AboutTitle;
         public TextView AboutText;
+        public ImageView RedPoint;
         public MyViewHolder(View itemView) : base(itemView)
         {
             AboutTitle = itemView.FindViewById<TextView>(Resource.Id.AboutTitle);
             AboutText = itemView.FindViewById<TextView>(Resource.Id.AboutText);
+            RedPoint = itemView.FindViewById<ImageView>(Resource.Id.RedPoint);
         }
     }
 }

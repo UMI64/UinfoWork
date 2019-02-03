@@ -1,4 +1,4 @@
 <resources>
   <string name="app_name">UinfoWork</string>
-  <string name="Discription">{"新功能":["添加关于界面","添加应用内更新功能","开始应用内更新测试工作","更换下载引擎并修复了若干BUG","空教室按钮添加了提示"]}</string>
+  <string name="Discription">{"新功能":["添加关于界面","添加应用内更新功能","开始应用内更新测试工作","更换下载引擎并修复了若干BUG","空教室按钮添加了提示","添加新版本小红点提示"]}</string>
 </resources>

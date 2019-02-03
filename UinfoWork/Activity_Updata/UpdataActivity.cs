@@ -68,6 +68,7 @@ namespace Uinfo.Updata
                 builder.SetView(view);
                 builder.SetNegativeButton("取消",new DownloadDialogClickListener(updataActivity,this));
                 dialog = builder.Create();
+                dialog.SetCancelable(false);
                 dialog.Show();
             }
             private class DownloadDialogClickListener : Java.Lang.Object, IDialogInterfaceOnClickListener

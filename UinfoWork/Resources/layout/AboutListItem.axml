@@ -22,6 +22,14 @@
 			android:id="@+id/AboutTitle"
 			android:layout_alignParentLeft="true"
 			android:layout_centerVertical="true" />
+		<ImageView
+			android:src="@drawable/RadPoint"
+			android:layout_width="8dp"
+			android:layout_height="8dp"
+			android:layout_marginLeft="13dp"
+			android:layout_marginTop="10dp"
+			android:id="@+id/RedPoint"
+			android:layout_toRightOf="@+id/AboutTitle"/>
 		<TextView
 			android:text="1.3.5Devsss"
 			android:textAppearance="?android:attr/textAppearanceMedium"
