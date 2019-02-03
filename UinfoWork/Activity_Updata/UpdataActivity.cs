@@ -34,11 +34,18 @@ namespace Uinfo.Updata
             VerisonName.Text = NewVerison.VersionName;
 
             TextView VerisonDiscription = FindViewById<TextView>(Resource.Id.VerisonDiscription);
-            JObject jObject = (JObject)JsonConvert.DeserializeObject(NewVerison.VersionDiscription);
-            JArray jArray = (JArray)jObject["VerisonDiscription"];
-            foreach (var item in jArray)
+            try
             {
-                VerisonDiscription.Text+= item.ToString()+"\r\n";
+                JObject jObject = (JObject)JsonConvert.DeserializeObject(NewVerison.VersionDiscription);
+                JArray jArray = (JArray)jObject["VerisonDiscription"];
+                foreach (var item in jArray)
+                {
+                    VerisonDiscription.Text += item.ToString() + "\r\n";
+                }
+            }
+            catch
+            {
+                VerisonDiscription.Text = "获取更新描述失败";
             }
             #region 下载更新按钮
             Button DownloadButton = FindViewById<Button>(Resource.Id.DownloadButton); 
@@ -106,8 +113,8 @@ namespace Uinfo.Updata
             {
                 base.OnProgressUpdate(values);
                 progressbar.SetProgress(values[0],true);
-                Downloads.Text = values[1].ToString()+"Kb/"+values[2].ToString() + "Kb";
-                TimeLeft.Text = "剩余"+second.ToString()+"秒";
+                Downloads.Text=values[1].ToString() + "Kb/" + values[2].ToString() + "Kb";
+                TimeLeft.Text = "剩余" + second.ToString() + "秒";
             }
             protected override void OnCancelled()
             {
@@ -117,9 +124,9 @@ namespace Uinfo.Updata
             }
             protected override string RunInBackground(string[] @params)
             {
-                Timer aTimer= new Timer(10000);
+                Timer aTimer= new Timer(1000);
                 string Url = @params[0];
-                int[] OutPutDatas =new int[4];
+                int[] OutPutDatas =new int[3];
                 try
                 {
                     if (!Directory.Exists(fileSavePath))
@@ -162,8 +169,7 @@ namespace Uinfo.Updata
                         OutPutDatas[0] = Progress;
                         OutPutDatas[1] = count;
                         OutPutDatas[2] = (int)length;
-                        OutPutDatas[3] = second;
-                        OnProgressUpdate(OutPutDatas);
+                        PublishProgress(OutPutDatas);
                     }
                     aTimer.Close();
                     outStream.Close();
@@ -179,7 +185,8 @@ namespace Uinfo.Updata
             private void OnTimedEvent(object source, ElapsedEventArgs e)
             {
                 int different = count - Lastcount;
-                second = (int)(different / (length - count));
+                second = (int)((length - count)/ different);
+                Lastcount = count;
             }
             protected override void OnPostExecute(string result)
             {
