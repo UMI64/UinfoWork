@@ -25,10 +25,10 @@
 		android:layout_centerHorizontal="true"
 		android:layout_below="@+id/APPName"  />
 	<TextView
-		android:text="111222"
+		android:text=""
 		android:id="@+id/VerisonDiscription"
 		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:lineSpacingExtra="3dp"
+		android:lineSpacingExtra="6dp"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="20dp"

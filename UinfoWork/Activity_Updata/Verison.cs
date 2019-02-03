@@ -30,6 +30,7 @@ namespace Uinfo.Updata
                         verison.VersionDiscription = node.InnerText;
                     }
                 }
+                verison.VersionDiscription = verison.VersionDiscription.Replace("\\", string.Empty);
             }
             catch
             {
