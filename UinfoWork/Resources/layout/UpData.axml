@@ -3,25 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-	<Button
-		android:text="Button"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/DownloadButton" />
 	<TextView
 		android:text="@string/Discription"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/textView1" />
-	<TextView
-		android:text="pending"
-		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:id="@+id/NewFuction" />
+	<Button
+		android:text="下载更新"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/StatueText" />
-	<android.support.v4.widget.ContentLoadingProgressBar
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/contentLoadingProgressBar1" />
+		android:id="@+id/DownloadButton" />
 </LinearLayout>

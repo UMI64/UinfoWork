@@ -30,6 +30,8 @@ namespace Uinfo.About
             #endregion
             LocalVerison = Verison.GetLocalVersion(this);
             AboutMenu.Add(new AboutItem("版本", "版本名 " + LocalVerison.VersionName + "\r\n" + "版本号 " + LocalVerison.VersionCode));
+            AboutMenu.Add(new AboutItem("分割",""));
+            AboutMenu.Add(new AboutItem("团队成员", ""));
             RecyclerView AboutRecyclertView = FindViewById<RecyclerView>(Resource.Id.AboutRecyclertView);//绑定链表
             Aboutlist_adapter = new AboutRecyclerViewAdapter(AboutMenu, this);//创建适配器
             AboutRecyclertView.SetLayoutManager(new LinearLayoutManager(this));//
@@ -119,7 +121,7 @@ namespace Uinfo.About
         }
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            if (holder is MyViewHolder)
+            if (holder.ItemViewType==0)
             {
                 MyViewHolder myViewHolder = holder as MyViewHolder;
                 myViewHolder.AboutTitle.Text = data[position].Title;
@@ -132,10 +134,25 @@ namespace Uinfo.About
         {
             OnClickEventHandler(v.FindViewById<TextView>(Resource.Id.AboutTitle).Text);
         }
+        public override int GetItemViewType(int position)
+        {
+            if (data[position].Title == "分割")
+                return 1;
+            else
+                return 0;
+        }
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewItem)
         {
-            View view = LayoutInflater.From(_context).Inflate(Resource.Layout.AboutListItem, parent, false);
-            MyViewHolder holder = new MyViewHolder(view);
+            View view;
+            if (viewItem == 0)
+            {
+                view = LayoutInflater.From(_context).Inflate(Resource.Layout.AboutListItem, parent, false);
+            }
+            else
+            { view = LayoutInflater.From(_context).Inflate(Resource.Layout.AboutListItemDiv, parent, false);
+
+            }
+            MyViewHolder holder = new MyViewHolder(view, viewItem);
             return holder;
         }
         public override int ItemCount
@@ -153,11 +170,13 @@ namespace Uinfo.About
     }
     public class MyViewHolder : RecyclerView.ViewHolder
     {
+        public int Type = 0;
         public TextView AboutTitle;
         public TextView AboutText;
         public ImageView RedPoint;
-        public MyViewHolder(View itemView) : base(itemView)
+        public MyViewHolder(View itemView,int type) : base(itemView)
         {
+            Type = type;
             AboutTitle = itemView.FindViewById<TextView>(Resource.Id.AboutTitle);
             AboutText = itemView.FindViewById<TextView>(Resource.Id.AboutText);
             RedPoint = itemView.FindViewById<ImageView>(Resource.Id.RedPoint);

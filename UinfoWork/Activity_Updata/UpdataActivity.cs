@@ -4,14 +4,12 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Android.Content;
-using Android.Database;
 using Android.Support.V4.Content;
 using Android.Provider;
 using Android.Content.PM;
 using Android.Net;
-using Java.Net;
 using System.IO;
-
+using System.Timers;
 namespace Uinfo.Updata
 {
     [Activity(Label = "UpdataActivity")]
@@ -20,7 +18,6 @@ namespace Uinfo.Updata
         readonly static string APKname = "Uinfo.apk";
         Intent StartInstallintent;
         Verison NewVerison = new Verison();
-        TextView StatueText;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,8 +25,6 @@ namespace Uinfo.Updata
             NewVerison.VersionCode = Intent.GetCharSequenceExtra("VersionCode");
             NewVerison.VersionName = Intent.GetCharSequenceExtra("VersionName");
             NewVerison.VersionDiscription = Intent.GetCharSequenceExtra("VersionDiscription");
-
-            StatueText = FindViewById<TextView>(Resource.Id.StatueText);
             #region 设置ToolBar
             SetToolBar();
             #endregion
@@ -51,7 +46,13 @@ namespace Uinfo.Updata
             UpdataActivity updataActivity;
             bool IsCancel = false;
             ProgressBar progressbar;
+            TextView Downloads;
+            TextView TimeLeft;
             Dialog dialog;
+            int count = 0;
+            int Lastcount = 0;
+            long length = 0;
+            int second=0;
             public DownloadTask(UpdataActivity updataActivity)
             {
                 this.updataActivity = updataActivity;
@@ -65,6 +66,8 @@ namespace Uinfo.Updata
                 builder.SetTitle("下载中");
                 View view = LayoutInflater.From(updataActivity).Inflate(Resource.Layout.UpdataDownloadDialog, null);
                 progressbar = (ProgressBar)view.FindViewById(Resource.Id.progressbar);
+                Downloads= (TextView)view.FindViewById(Resource.Id.Downloads);
+                TimeLeft = (TextView)view.FindViewById(Resource.Id.TimeLeft);
                 builder.SetView(view);
                 builder.SetNegativeButton("取消",new DownloadDialogClickListener(updataActivity,this));
                 dialog = builder.Create();
@@ -90,8 +93,9 @@ namespace Uinfo.Updata
             protected override void OnProgressUpdate(params int[] values)
             {
                 base.OnProgressUpdate(values);
-                updataActivity.StatueText.Text = values[0].ToString();
                 progressbar.SetProgress(values[0],true);
+                Downloads.Text = values[1].ToString()+"Kb/"+values[2].ToString() + "Kb";
+                TimeLeft.Text = "剩余"+second.ToString()+"秒";
             }
             protected override void OnCancelled()
             {
@@ -101,7 +105,9 @@ namespace Uinfo.Updata
             }
             protected override string RunInBackground(string[] @params)
             {
+                Timer aTimer= new Timer(10000);
                 string Url = @params[0];
+                int[] OutPutDatas =new int[4];
                 try
                 {
                     if (!Directory.Exists(fileSavePath))
@@ -123,11 +129,13 @@ namespace Uinfo.Updata
 
                     System.Net.WebResponse response = request.GetResponse();
                     Stream inputStream = response.GetResponseStream();
-                    long length = inputStream.Length;
-                    int count = 0;
+                    length = inputStream.Length;
                     byte[] buffer = new byte[1024];
                     Stream outStream = File.Create(filePath);
                     Stream inStream = response.GetResponseStream();
+                    aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+                    aTimer.AutoReset = true;
+                    aTimer.Enabled = true;
                     while (!IsCancel)
                     {
                         int ReadLength = 0;
@@ -139,8 +147,13 @@ namespace Uinfo.Updata
                         count += ReadLength;
                         int Progress = (int)(((float)count / length) * 100);
                         // 更新进度条
-                        OnProgressUpdate(Progress);
+                        OutPutDatas[0] = Progress;
+                        OutPutDatas[1] = count;
+                        OutPutDatas[2] = (int)length;
+                        OutPutDatas[3] = second;
+                        OnProgressUpdate(OutPutDatas);
                     }
+                    aTimer.Close();
                     outStream.Close();
                     inStream.Close();
                 }
@@ -150,6 +163,11 @@ namespace Uinfo.Updata
                 }
                 if (IsCancel) return Failure;
                 return Success;
+            }
+            private void OnTimedEvent(object source, ElapsedEventArgs e)
+            {
+                int different = count - Lastcount;
+                second = (int)(different / (length - count));
             }
             protected override void OnPostExecute(string result)
             {
