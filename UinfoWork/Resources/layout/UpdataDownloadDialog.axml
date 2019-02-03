@@ -11,14 +11,14 @@
         android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"/>
 	<TextView
-		android:text="100k/500k"
+		android:text="0Kb/0Kb"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:id="@+id/Downloads"
 		android:layout_below="@+id/progressbar" />
 	<TextView
-		android:text="3min"
+		android:text="0min"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
