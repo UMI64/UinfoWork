@@ -194,21 +194,28 @@ namespace Uinfo
         {
             DateTime time=new DateTime(year, month, day, hour, minute,20);
             TimeText.Text = year.ToString() + "年" + month.ToString() + "月" + day.ToString() + "日   " + hour.ToString() + ":" + minute.ToString();
-            int Weeks;
-            if (month >= 9)
+            DateTime 冬;
+            DateTime 夏;
+            if (month >= 9 && day>3)
             {
-                DateTime 冬 = new DateTime(year, 9, 1);
-                冬 = 冬.AddDays(1 - Convert.ToInt16(冬.DayOfWeek.ToString("D")));
-                Weeks = (time.DayOfYear - 冬.DayOfYear) / 7 + 1;
+                冬 = new DateTime(year, 9, 3);
+                夏 = new DateTime(year + 1, 2, 25);
             }
             else
             {
-                DateTime 夏 = new DateTime(year, 2, 21);
-                夏 = 夏.AddDays(1 - Convert.ToInt16(夏.DayOfWeek.ToString("D")));
-                Weeks = (time.DayOfYear - 夏.DayOfYear) / 7 +1;
+                冬 = new DateTime(year - 1, 9, 3);
+                夏 = new DateTime(year, 2, 25);
             }
-            if (Weeks <= 0) WeekText.Text = "学习使我快乐";
-            else WeekText.Text = "第" + Weeks.ToString() + "周 " + NumberToWeekChinese(Convert.ToInt16(time.DayOfWeek.ToString("D")));
+            var t冬 = 冬.AddDays(1 - Convert.ToInt16(冬.DayOfWeek.ToString("D")));
+            var 冬Weeks = (time - t冬).Days / 7;
+            if (冬Weeks >= 0) 冬Weeks += 1;
+            var t夏 = 夏.AddDays(1 - Convert.ToInt16(夏.DayOfWeek.ToString("D")));
+            var 夏Weeks = (time- t夏).Days / 7;
+            if (夏Weeks >= 0) 夏Weeks += 1;
+            if (冬Weeks <= 20) WeekText.Text = "第" + 冬Weeks.ToString() + "周 " + NumberToWeekChinese(Convert.ToInt16(time.DayOfWeek.ToString("D")));
+            else if (夏Weeks < 1) WeekText.Text = "距离开学还有" + (t夏 - time).Days / 7 + "周";
+            else if (夏Weeks <= 20) WeekText.Text = "第" + 夏Weeks.ToString() + "周 " + NumberToWeekChinese(Convert.ToInt16(time.DayOfWeek.ToString("D")));
+            else WeekText.Text = "距离开学还有" + (t冬.AddYears(1) - time).Days / 7 + "周";
             searchRoom.ResetShowDatas(this);//显示数据应用更改
             roomlist_adapter.NotifyDataSetChanged();//显示数据刷新
         }//应用更改的时间并更新显示的数据
