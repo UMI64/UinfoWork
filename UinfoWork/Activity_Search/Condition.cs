@@ -11,6 +11,7 @@ using Android.Widget;
 using Android.Util;
 using Android.Graphics.Drawables;
 using Android.Support.V7.Widget;
+using Uinfo.Tools;
 namespace Uinfo
 {
     public class Condition
@@ -144,11 +145,11 @@ namespace Uinfo
                 int weeks = int.Parse(dialogView.FindViewById<EditText>(Resource.Id.ChangeWeeksText).Text);
                 int week = int.Parse(dialogView.FindViewById<EditText>(Resource.Id.ChangeWeekText).Text);
                 DateTime time;
-                if (month >= 9)
-                    time=new DateTime(year, 9, 1);
-                else
-                    time = new DateTime(year, 2, 21);
-                time=time.AddDays((weeks-1) * 7);
+                var 夏time = TimeTools.计算本学期夏开学时间(Time);
+                var 冬time = TimeTools.计算本学期冬开学时间(Time);
+                if (Time > 夏time) time = 夏time;
+                else time = 冬time;
+                time =time.AddDays((weeks-1) * 7);
                 time=time.AddDays(week-Convert.ToInt16(time.DayOfWeek.ToString("D")));
                 year = time.Year;
                 month = time.Month;
@@ -194,28 +195,13 @@ namespace Uinfo
         {
             DateTime time=new DateTime(year, month, day, hour, minute,20);
             TimeText.Text = year.ToString() + "年" + month.ToString() + "月" + day.ToString() + "日   " + hour.ToString() + ":" + minute.ToString();
-            DateTime 冬;
-            DateTime 夏;
-            if (month >= 9 && day>3)
-            {
-                冬 = new DateTime(year, 9, 3);
-                夏 = new DateTime(year + 1, 2, 25);
-            }
-            else
-            {
-                冬 = new DateTime(year - 1, 9, 3);
-                夏 = new DateTime(year, 2, 25);
-            }
-            var t冬 = 冬.AddDays(1 - Convert.ToInt16(冬.DayOfWeek.ToString("D")));
-            var 冬Weeks = (time - t冬).Days / 7;
-            if (冬Weeks >= 0) 冬Weeks += 1;
-            var t夏 = 夏.AddDays(1 - Convert.ToInt16(夏.DayOfWeek.ToString("D")));
-            var 夏Weeks = (time- t夏).Days / 7;
-            if (夏Weeks >= 0) 夏Weeks += 1;
+
+            var 冬Weeks=TimeTools.计算冬的周(time);
+            var 夏Weeks= TimeTools.计算夏的周(time);
             if (冬Weeks <= 20) WeekText.Text = "第" + 冬Weeks.ToString() + "周 " + NumberToWeekChinese(Convert.ToInt16(time.DayOfWeek.ToString("D")));
-            else if (夏Weeks < 1) WeekText.Text = "距离开学还有" + (t夏 - time).Days / 7 + "周";
+            else if (夏Weeks < 1) WeekText.Text = "距离开学还有" + (TimeTools.计算本学期夏开学时间(time) - time).Days / 7 + "周";
             else if (夏Weeks <= 20) WeekText.Text = "第" + 夏Weeks.ToString() + "周 " + NumberToWeekChinese(Convert.ToInt16(time.DayOfWeek.ToString("D")));
-            else WeekText.Text = "距离开学还有" + (t冬.AddYears(1) - time).Days / 7 + "周";
+            else WeekText.Text = "距离开学还有" + (TimeTools.计算本学期冬开学时间(time).AddYears(1) - time).Days / 7 + "周";
             searchRoom.ResetShowDatas(this);//显示数据应用更改
             roomlist_adapter.NotifyDataSetChanged();//显示数据刷新
         }//应用更改的时间并更新显示的数据

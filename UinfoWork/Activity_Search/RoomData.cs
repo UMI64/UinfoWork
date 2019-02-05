@@ -2,6 +2,7 @@
 using Java.Util;
 using System;
 using System.Collections.Generic;
+using Uinfo.Tools;
 namespace Uinfo
 {
     /// <summary>
@@ -33,9 +34,48 @@ namespace Uinfo
     {
         public string CourseName { get; set; }//课程名称
         public string TeacherName { get; set; }//教师名字
-        public string CourseTime { get; set; }//上课时间
+        private string Time;
+        public string CourseTime//上课时间
+        {
+            get
+            {
+                return Time;
+            }
+            set
+            {
+                Time = value;
+                NewCourseTime = CourseTimeFormate.Parse(value);
+            }
+        }
         public string CourseNum { get; set; }//课程代码
         public string CourseChange { get; set; }//课程变化信息
+        public CourseTimeFormate NewCourseTime = new CourseTimeFormate();
+        public static bool 是否在课程周数内(CourseTimeFormate CourseTime, DateTime SetTime)
+        {
+            int 目标周数 = TimeTools.计算当前周(SetTime);
+            if (目标周数 >= CourseTime.开始周 && 目标周数 <= CourseTime.结束周) return true;
+            return false;
+        }
+        public static bool 是否在课程周数内(CourseTimeFormate CourseTime, int Week)
+        {
+            int 目标周数 = Week;
+            if (目标周数 >= CourseTime.开始周 && 目标周数 <= CourseTime.结束周) return true;
+            return false;
+        }
+        public static bool 是否在课程节数内(CourseTimeFormate CourseTime, DateTime SetTime)
+        {
+            float 当前节 = TimeTools.计算当前节(SetTime);
+            foreach (int 节 in CourseTime.节)
+            {
+                if (当前节 >= 节 && 当前节 <= 节 + 1) return true;
+            }
+            return false;
+        }
+        public static bool 是否在课程星期内(CourseTimeFormate CourseTime, DateTime SetTime)
+        {
+            if (SetTime.DayOfWeek == CourseTime.星期) return true;
+            else return false;
+        }
     }
     public class CourseTimeFormate
     {
@@ -97,10 +137,9 @@ namespace Uinfo
             var ReRoom = new Show_Roomdate();
             if (Coursedates != null)
             {
-                foreach (Coursedata course in Coursedates)
+                foreach (Coursedata course in Coursedates)//遍历每一节课
                 {
-                    CourseTimeFormate courseTime = CourseTimeFormate.Parse(course.CourseTime);
-                    if (EqualsTime(courseTime, Time))
+                    if (EqualsTime(course, Time))
                     {//非空教室显示信息
                         ReRoom.CourseName = course.CourseName;
                         ReRoom.CourseNum = course.CourseNum;
@@ -117,51 +156,12 @@ namespace Uinfo
             ReRoom.CourseTime = 转化为显示的时间(Time);
             return ReRoom;
         }
-        private static bool EqualsTime(CourseTimeFormate CourseTime, DateTime SetTime)
+        private static bool EqualsTime(Coursedata Course, DateTime SetTime)
         {
-            if (是否在课程周数内(CourseTime, SetTime) && 星期是否一样(CourseTime, SetTime) && 是否在课程节数内(CourseTime, SetTime))//判断周数符合//判断星期符合//判断节符合
+            if (Coursedata.是否在课程周数内(Course.NewCourseTime, SetTime) && Coursedata.是否在课程星期内(Course.NewCourseTime, SetTime) && Coursedata.是否在课程节数内(Course.NewCourseTime, SetTime))//判断周数符合//判断星期符合//判断节符合
                 return true;
             else
                 return false;
-        }
-        private static bool 是否在课程周数内(CourseTimeFormate CourseTime, DateTime SetTime)
-        {
-            int 目标周数;
-            if (SetTime.Month >= 9)
-            {
-                DateTime 冬 = new DateTime(SetTime.Year, 9, 1);
-                目标周数 = (SetTime.DayOfYear - 冬.DayOfYear)/ 7;
-                if ((SetTime.DayOfYear - 冬.DayOfYear) % 7 > 0)
-                    目标周数 += 1;
-             }
-            else
-            {
-                DateTime 夏 = new DateTime(SetTime.Year, 2, 21);
-                目标周数 = (SetTime.DayOfYear - 夏.DayOfYear)/7;
-                if ((SetTime.DayOfYear - 夏.DayOfYear) % 7 > 0)
-                    目标周数 += 1;
-            }
-            if (目标周数 >= CourseTime.开始周 && 目标周数 <= CourseTime.结束周) return true;
-            return false;
-        }
-        private static bool 星期是否一样(CourseTimeFormate CourseTime, DateTime SetTime)
-        {
-            if (SetTime.DayOfWeek == CourseTime.星期) return true;
-            else return false;
-        }
-        private static bool 是否在课程节数内(CourseTimeFormate CourseTime, DateTime SetTime)
-        {
-            float 目标节=1;
-            var TargetTime =TimeSpan.Parse(SetTime.Hour.ToString() + ":" + SetTime.Minute.ToString());
-            foreach (TimeSpan time in TimeNode)
-            {
-                if (TargetTime > time) 目标节 += 0.5f;
-            }
-            foreach (int 节 in CourseTime.节)
-            {
-                if (目标节 >= 节 && 目标节 <= 节 + 1) return true;
-            }
-            return false;
         }
         private static TimeSpan[] TimeNode =
         {
@@ -202,16 +202,8 @@ namespace Uinfo
         };
         private static string 转化为显示的时间(DateTime OldTimeFormate)
         {
-            float 目标节 = 1;
-            var TargetTime = TimeSpan.Parse(OldTimeFormate.Hour.ToString() + ":" + OldTimeFormate.Minute.ToString());
-            foreach (TimeSpan time in TimeNode)
-            {
-                if (TargetTime > time) 目标节 += 0.5f;
-            }
-            目标节 = (((int)Math.Floor(目标节)) - 1) * 2;
-            if (目标节 >= TimeNode.Length - 1) 目标节 = TimeNode.Length - 2;
-            string 起始 = TimeNode[(int)目标节].Hours.ToString()+":"+ TimeNode[(int)目标节].Minutes.ToString();
-            string 结束 = TimeNode[(int)目标节 + 1].Hours.ToString() + ":" + TimeNode[(int)目标节+1].Minutes.ToString();
+            string 起始 = TimeTools.计算节的开始时间(OldTimeFormate).ToString("HH:mm");
+            string 结束 = TimeTools.计算节的结束时间(OldTimeFormate).ToString("HH:mm");
             return 起始 + "~"+ 结束;
         }
     }

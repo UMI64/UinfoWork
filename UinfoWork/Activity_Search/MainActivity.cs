@@ -25,7 +25,7 @@ namespace Uinfo
             LoadMoreWrapper loadMoreWrapper = new LoadMoreWrapper(roomlist_adapter);//创建含有加载更多的适配器
             RoomRecyclertView.SetLayoutManager(new LinearLayoutManager(this));//
             RoomRecyclertView.SetAdapter(loadMoreWrapper);//设置链表的适配器
-            RoomRecyclertView.AddOnScrollListener(new Loadmore(searchRoom, loadMoreWrapper));//设置滑动到底部时加载更多
+            RoomRecyclertView.AddOnScrollListener(new Loadmore(this, searchRoom, loadMoreWrapper));//设置滑动到底部时加载更多
             Detail DetailView = new Detail(this);//教室详细信息页面
             ((RecyclerViewAdapter)roomlist_adapter).OnClickEventHandler += (RoomNum) =>
             {//点击教室后展开详细页面 传入教室相关信息
@@ -74,7 +74,7 @@ namespace Uinfo
                         RoomRecyclertView.ScrollToPosition(0);
                     searchRoom.Show_Datas.Clear();//清空显示数据
                     loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING;
-                    new LoadTask(searchRoom, loadMoreWrapper, conditions).Execute(SearchBox.Text);
+                    new LoadTask(this, searchRoom, loadMoreWrapper, conditions).Execute(SearchBox.Text);
                 }
             };
             SearchButton.Click += (sender, args) =>
@@ -83,7 +83,7 @@ namespace Uinfo
                     RoomRecyclertView.ScrollToPosition(0);
                 searchRoom.Show_Datas.Clear();//清空显示数据
                 loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING;
-                new LoadTask(searchRoom, loadMoreWrapper, conditions).Execute(SearchBox.Text);
+                new LoadTask(this, searchRoom, loadMoreWrapper, conditions).Execute(SearchBox.Text);
             };
             #endregion
         }
@@ -94,8 +94,10 @@ namespace Uinfo
         {
             SearchRoom searchRoom;
             LoadMoreWrapper loadMoreWrapper;
-            public Loadmore(SearchRoom searchRoom, LoadMoreWrapper loadMoreWrapper)
+            Context context;
+            public Loadmore(Context context, SearchRoom searchRoom, LoadMoreWrapper loadMoreWrapper)
             {
+                this.context = context;
                 this.searchRoom = searchRoom;
                 this.loadMoreWrapper = loadMoreWrapper;
             }
@@ -104,60 +106,77 @@ namespace Uinfo
                 if (loadMoreWrapper.LoadState != LoadMoreWrapper.LOADING_END)
                 {
                     loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING;
-                    new LoadmoreTask(searchRoom, loadMoreWrapper).Execute(5);
+                    new LoadmoreTask(context, searchRoom, loadMoreWrapper).Execute(5);
                 }
             }
         }
         /// <summary>
         /// 初次加载任务
         /// </summary>
-        public class LoadTask : AsyncTask<string, int, bool>
+        public class LoadTask : AsyncTask<string, int, string>
         {
             SearchRoom searchRoom;
             LoadMoreWrapper loadMoreWrapper;
             Condition condition;
-            public LoadTask(SearchRoom searchRoom, LoadMoreWrapper loadMoreWrapper, Condition condition)
+            Context context;
+            public LoadTask(Context context, SearchRoom searchRoom, LoadMoreWrapper loadMoreWrapper, Condition condition)
             {
+                this.context = context;
                 this.searchRoom = searchRoom;
                 this.loadMoreWrapper = loadMoreWrapper;
                 this.condition = condition;
             }
-            protected override bool RunInBackground(string[] @params)
+            protected override string RunInBackground(string[] @params)
             {
                 return searchRoom.Start(@params[0], condition);
             }
-            protected override void OnPostExecute(bool result)
+            protected override void OnPostExecute(string result)
             {
                 base.OnPostExecute(result);
-                if (result)
-                    loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING_COMPLETE;
-                else
+                if (result.Contains("End"))
+                {
                     loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING_END;
+                }
+                else
+                {
+                    loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING_COMPLETE;
+                    Toast toast = Toast.MakeText(context, result, ToastLength.Long);
+                    toast.Show();
+                }
+
             }
         }
         /// <summary>
         /// 加载更多任务
         /// </summary>
-        public class LoadmoreTask : AsyncTask<int, int, bool>
+        public class LoadmoreTask : AsyncTask<int, int, string>
         {
             SearchRoom searchRoom;
             LoadMoreWrapper loadMoreWrapper;
-            public LoadmoreTask(SearchRoom searchRoom, LoadMoreWrapper loadMoreWrapper)
+            Context context;
+            public LoadmoreTask(Context context, SearchRoom searchRoom, LoadMoreWrapper loadMoreWrapper)
             {
+                this.context = context;
                 this.searchRoom = searchRoom;
                 this.loadMoreWrapper = loadMoreWrapper;
             }
-            protected override bool RunInBackground(int[] @params)
+            protected override string RunInBackground(int[] @params)
             {
                 return searchRoom.GetinfoFromRoomNumber(@params[0]);
             }
-            protected override void OnPostExecute(bool result)
+            protected override void OnPostExecute(string result)
             {
                 base.OnPostExecute(result);
-                if (result)
-                    loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING_COMPLETE;
-                else
+                if (result.Contains("End"))
+                {
                     loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING_END;
+                }
+                else
+                {
+                    loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING_COMPLETE;
+                    Toast toast = Toast.MakeText(context, result, ToastLength.Long);
+                    toast.Show();
+                }
             }
         }
     }

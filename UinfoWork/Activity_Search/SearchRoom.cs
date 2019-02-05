@@ -33,17 +33,18 @@ namespace Uinfo
         /// </summary>
         /// <param name="SearchText"></param>
         /// <param name="Condition"></param>
-        public bool Start(string SearchText, Condition Condition)
+        public string Start(string SearchText, Condition Condition)
         {
-            GetRoomNumber(SearchText, Condition);
-            return GetinfoFromRoomNumber(10);
+            var res=GetRoomNumber(SearchText, Condition);
+            if (res.Contains("Success")) return GetinfoFromRoomNumber(10);
+            else return res;
         }
         /// <summary>
         /// 搜索教室号
         /// </summary>
         /// <param name="SearchText"></param>
         /// <param name="Condition"></param>
-        public void GetRoomNumber(string SearchText, Condition Condition)
+        public string GetRoomNumber(string SearchText, Condition Condition)
         {
             condition = Condition;
             //分析文本参数
@@ -61,11 +62,7 @@ namespace Uinfo
             var Result = httpRequest.PostGerResult(RoomURL, Key);
             #region 网络错误处理
             if (!Result.Contains("rooms_num"))
-            {
-                Toast toast = Toast.MakeText(context, "远程服务器未响应", ToastLength.Long);
-                toast.Show();
-                return;
-            }
+                return "远程服务器未响应";
             #endregion
             #endregion
             #region 清空原始数据
@@ -82,13 +79,14 @@ namespace Uinfo
                 RoomList.Add(room);
             }
             #endregion
+            return "Success";
         }
         /// <summary>
         /// 根据已有教室号下载教室的详细信息
         /// </summary>
         /// <param name="NumberOFrooms"></param>
         /// <returns></returns>
-        public bool GetinfoFromRoomNumber(int NumberOFrooms)
+        public string GetinfoFromRoomNumber(int NumberOFrooms)
         {
             bool HaveEmptyInfoRoom = true;
             var TagRooms = new List<string>();//目标房间
@@ -103,7 +101,7 @@ namespace Uinfo
             }
             if (count < 10) HaveEmptyInfoRoom = false;
             GetRoomInfo(TagRooms);
-            return HaveEmptyInfoRoom;
+            return HaveEmptyInfoRoom?"Success":"End";
         }
         /// <summary>
         /// 下载给定房间包含的课程并添加到显示数据链表
