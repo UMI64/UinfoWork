@@ -14,6 +14,7 @@ namespace Uinfo
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        public Condition conditions;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -60,7 +61,7 @@ namespace Uinfo
             VersionCode.Text = "版本 " + APKVersionCodeUtils.GetVerName(this);
             #endregion
             #region 搜索条件
-            Condition conditions = new Condition(this, searchRoom, loadMoreWrapper);
+            conditions = new Condition(this, searchRoom, loadMoreWrapper);
             #endregion
             #region 搜索栏
             EditText SearchBox = FindViewById<EditText>(Resource.Id.edit_search);

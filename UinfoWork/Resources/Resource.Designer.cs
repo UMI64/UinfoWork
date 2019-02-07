@@ -2465,8 +2465,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f0900e8
 			public const int DayList = 2131296488;
 			
-			// aapt resource value: 0x7f0900af
-			public const int Detailtoolbar = 2131296431;
+			// aapt resource value: 0x7f0900ae
+			public const int Detailtoolbar = 2131296430;
 			
 			// aapt resource value: 0x7f0900f2
 			public const int DownloadButton = 2131296498;
@@ -2501,8 +2501,8 @@ namespace Uinfo
 			// aapt resource value: 0x7f090090
 			public const int RedPoint = 2131296400;
 			
-			// aapt resource value: 0x7f0900ae
-			public const int RoomNum = 2131296430;
+			// aapt resource value: 0x7f0900af
+			public const int RoomNum = 2131296431;
 			
 			// aapt resource value: 0x7f0900c5
 			public const int RoomRecyclertView = 2131296453;
