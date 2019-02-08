@@ -205,7 +205,6 @@ namespace Uinfo.Updata
             SupportActionBar.SetDisplayShowTitleEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetDisplayShowTitleEnabled(false);
         }
         /// <summary>
         /// 的事件---返回
