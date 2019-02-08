@@ -112,8 +112,8 @@ namespace Uinfo.Updata
             protected override void OnProgressUpdate(params int[] values)
             {
                 base.OnProgressUpdate(values);
-                progressbar.SetProgress(values[0],true);
-                Downloads.Text=values[1].ToString() + "Kb/" + values[2].ToString() + "Kb";
+                progressbar.SetProgress(values[0], true);
+                Downloads.Text = (values[1] / 1024).ToString() + "Kb/" + (values[2] / 1024).ToString() + "Kb";
                 TimeLeft.Text = "剩余" + second.ToString() + "秒";
             }
             protected override void OnCancelled()

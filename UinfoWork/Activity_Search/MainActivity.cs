@@ -129,6 +129,7 @@ namespace Uinfo
             }
             protected override string RunInBackground(string[] @params)
             {
+                System.Threading.Thread.Sleep(200);
                 return searchRoom.Start(@params[0], condition);
             }
             protected override void OnPostExecute(string result)
@@ -163,6 +164,7 @@ namespace Uinfo
             }
             protected override string RunInBackground(int[] @params)
             {
+                System.Threading.Thread.Sleep(800);
                 return searchRoom.GetinfoFromRoomNumber(@params[0]);
             }
             protected override void OnPostExecute(string result)
