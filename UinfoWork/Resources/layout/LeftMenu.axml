@@ -19,18 +19,20 @@
 		android:scaleType="fitCenter"/>
 	<TextView
 		android:text="普通模式"
+		android:background="?android:attr/selectableItemBackground"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="match_parent"
 		android:layout_height="40dp"
-		android:layout_marginLeft="30dp"
+		android:paddingLeft="30dp"
 		android:gravity="left|center"
 		android:id="@+id/中二病Text" />
 	<TextView
 		android:text="关于"
+		android:background="?android:attr/selectableItemBackground" 
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="match_parent"
 		android:layout_height="40dp"
-		android:layout_marginLeft="30dp"
+		android:paddingLeft="30dp"
 		android:gravity="left|center"
 		android:id="@+id/AboutText" />
 	<TextView
