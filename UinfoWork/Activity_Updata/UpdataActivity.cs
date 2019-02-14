@@ -55,6 +55,15 @@ namespace Uinfo.Updata
                 downloadTask.Execute("https://github.com/UMI64/UinfoWork/raw/master/UinfoWork.UinfoWork.apk");
             };
             #endregion
+            #region 下载更新按钮
+            TextView WebUpData = FindViewById<TextView>(Resource.Id.WebUpData);
+            WebUpData.Click += (o, e) =>
+            {
+                Uri uri = Uri.Parse("https://github.com/UMI64/UinfoWork/raw/master/UinfoWork.UinfoWork.apk");
+                Intent intent = new Intent(Intent.ActionView, uri);
+                StartActivity(intent);
+            };
+            #endregion
         }
         public class DownloadTask : AsyncTask<string, int, string>
         {

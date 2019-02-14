@@ -43,7 +43,19 @@
 		android:background="@color/colorPrimary"
 		android:textColor="@color/white"
 		android:id="@+id/DownloadButton"
-		android:layout_marginBottom="30dp"
+		android:layout_marginBottom="50dp"
 		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true" />
+	<TextView
+		android:text="无法更新?点这里"
+		android:id="@+id/WebUpData"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:autoLink="all"  
+		android:textColor="#777777"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:layout_marginBottom="27dp"  />
+
 </RelativeLayout>
