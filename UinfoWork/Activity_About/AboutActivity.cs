@@ -37,9 +37,11 @@ namespace Uinfo.About
             AboutRecyclertView.SetLayoutManager(new LinearLayoutManager(this));//
             AboutRecyclertView.SetAdapter(Aboutlist_adapter);//设置链表的适配器
             //点击选项后的操作
+            int Count= 0;
             ((AboutRecyclerViewAdapter)Aboutlist_adapter).OnClickEventHandler += (Title) =>
             {
-                if (Title == "版本" && AboutMenu[0].RedPointVisibility)
+                Count++;
+                if (Title == "版本" && AboutMenu[0].RedPointVisibility && Count>10)
                 {
                     Intent intent = new Intent(this, typeof(UpdataActivity));
                     //启动
