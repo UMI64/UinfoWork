@@ -6,9 +6,10 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Support.V4.Widget;
 using Android.Views.InputMethods;
-using Uinfo.Search;
 using Android.Content;
+using Uinfo.Search;
 using Uinfo.About;
+using Uinfo.Activity_TuCao;
 namespace Uinfo
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -53,11 +54,18 @@ namespace Uinfo
             AboutText.Click += (o, e) =>
             {
                 Intent intent = new Intent(this, typeof(AboutActivity));
-                //启动
+                //启动关于界面
                 StartActivity(intent);
             };
-            /*左菜单的版本号*/
-            TextView VersionCode = FindViewById<TextView>(Resource.Id.VersionCodeText);
+            TextView TocaoText = FindViewById<TextView>(Resource.Id.TocaoText);
+            TocaoText.Click += (o, e) =>
+            {
+                Intent intent = new Intent(this, typeof(TuCaoActivity));
+                //启动吐槽界面
+                StartActivity(intent);
+            };
+             /*左菜单的版本号*/
+             TextView VersionCode = FindViewById<TextView>(Resource.Id.VersionCodeText);
             VersionCode.Text = "版本 " + APKVersionCodeUtils.GetVerName(this);
             #endregion
             #region 搜索条件
