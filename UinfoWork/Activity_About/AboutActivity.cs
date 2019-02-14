@@ -125,7 +125,7 @@ namespace Uinfo.About
                 MyViewHolder myViewHolder = holder as MyViewHolder;
                 myViewHolder.AboutTitle.Text = data[position].Title;
                 myViewHolder.AboutText.Text = data[position].Text;
-                myViewHolder.RedPoint.Visibility = data[position].RedPointVisibility ? ViewStates.Visible : ViewStates.Gone;
+                myViewHolder.RedPoint.Visibility = data[position].RedPointVisibility ? ViewStates.Visible : ViewStates.Invisible;
                 myViewHolder.ItemView.SetOnClickListener(this);
             }
         }
