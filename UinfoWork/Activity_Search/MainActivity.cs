@@ -8,11 +8,16 @@ using Android.Views;
 using Android.Support.V4.Widget;
 using Android.Views.InputMethods;
 using Android.Content;
+using Android.Support.Design.Widget;
 using Uinfo.Search;
 using Uinfo.About;
 using Uinfo.Activity_TuCao;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Android.Runtime;
+using Android.Graphics;
+using Android.Graphics.Drawables;
+
 namespace Uinfo
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -102,6 +107,17 @@ namespace Uinfo
                 searchRoom.Show_Datas.Clear();//清空显示数据
                 loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING;
                 new LoadTask(this, searchRoom, loadMoreWrapper, conditions).Execute(SearchBox.Text);
+            };
+            /*左右按钮换颜色*/
+            AppBarLayout layout = FindViewById<AppBarLayout>(Resource.Id.appBarLayout1);
+            layout.OffsetChanged += (object sender, AppBarLayout.OffsetChangedEventArgs e) =>
+            {
+                int gray = 255;
+                if (-e.VerticalOffset < 255)
+                    gray = -e.VerticalOffset;
+                Color filtercolor= Color.Rgb(gray, gray, gray);
+                CalLeftMenu_button.Background.SetColorFilter(filtercolor, PorterDuff.Mode.Multiply);
+                SearchButton.Background.SetColorFilter(filtercolor, PorterDuff.Mode.Multiply);
             };
             #endregion
         }

@@ -38,17 +38,20 @@ namespace Uinfo.About
             AboutRecyclertView.SetAdapter(Aboutlist_adapter);//设置链表的适配器
             //点击选项后的操作
             int Count= 0;
+            bool UpDataActivityStarting = false;
             ((AboutRecyclerViewAdapter)Aboutlist_adapter).OnClickEventHandler += (Title) =>
             {
                 Count++;
-                if (Title == "版本" && (AboutMenu[0].RedPointVisibility || Count>10))
+                if (Title == "版本" && NewVerison.VersionCode!=null && (AboutMenu[0].RedPointVisibility || Count>10) && UpDataActivityStarting==false)
                 {
+                    UpDataActivityStarting = true;
                     Intent intent = new Intent(this, typeof(UpdataActivity));
                     //启动
                     intent.PutExtra("VersionCode", NewVerison.VersionCode.ToString());
                     intent.PutExtra("VersionName", NewVerison.VersionName.ToString());
                     intent.PutExtra("VersionDiscription", NewVerison.VersionDiscription.ToString());
                     StartActivity(intent);
+                    UpDataActivityStarting = false;
                 }
             };
         }

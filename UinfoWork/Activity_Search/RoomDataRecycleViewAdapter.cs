@@ -71,24 +71,6 @@ namespace Uinfo
     }
     public abstract class EndlessRecyclerOnScrollListener : RecyclerView.OnScrollListener
     {
-        /*
-        public override void OnScrollStateChanged(RecyclerView recyclerView, int newState)
-        {
-            base.OnScrollStateChanged(recyclerView, newState);
-            LinearLayoutManager manager = (LinearLayoutManager)recyclerView.GetLayoutManager();
-            //获取最后一个完全显示的itemPosition
-            int lastItemPosition = manager.FindLastCompletelyVisibleItemPosition();
-            int itemCount = manager.ItemCount;
-
-            // 判断是否滑动到了最后一个item
-            if (lastItemPosition == (itemCount - 1))
-            {
-                //加载更多
-                onLoadMore();
-            }
-
-        }
-        */
         public override void OnScrolled(RecyclerView recyclerView, int dx, int dy)
         {
             base.OnScrolled(recyclerView, dx, dy);

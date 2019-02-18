@@ -12,6 +12,7 @@ using System.IO;
 using System.Timers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Android.Text.Method;
 namespace Uinfo.Updata
 {
     [Activity(Label = "UpdataActivity")]
@@ -34,6 +35,7 @@ namespace Uinfo.Updata
             VerisonName.Text = NewVerison.VersionName;
 
             TextView VerisonDiscription = FindViewById<TextView>(Resource.Id.VerisonDiscription);
+            VerisonDiscription.MovementMethod = ScrollingMovementMethod.Instance;
             try
             {
                 JObject jObject = (JObject)JsonConvert.DeserializeObject(NewVerison.VersionDiscription);
