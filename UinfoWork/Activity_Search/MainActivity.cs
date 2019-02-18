@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Widget;
 using Android.OS;
 using Android.Support.V7.App;
@@ -10,6 +11,8 @@ using Android.Content;
 using Uinfo.Search;
 using Uinfo.About;
 using Uinfo.Activity_TuCao;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace Uinfo
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -74,6 +77,12 @@ namespace Uinfo
             #region 搜索栏
             EditText SearchBox = FindViewById<EditText>(Resource.Id.edit_search);
             Button SearchButton = FindViewById<Button>(Resource.Id.SearchButton);
+            /*搜索提示*/
+            string Tips = GetString(Resource.String.Tip);
+            JObject jObject = (JObject)JsonConvert.DeserializeObject(Tips);
+            JArray jArray = (JArray)jObject["Tips"];
+            Random rd = new Random();
+            SearchBox.Hint = jArray[rd.Next(0, jArray.Count)].ToString();
             /*开始搜索教室*/
             SearchBox.EditorAction += (sender, args) =>
             {

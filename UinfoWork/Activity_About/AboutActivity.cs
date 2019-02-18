@@ -41,7 +41,7 @@ namespace Uinfo.About
             ((AboutRecyclerViewAdapter)Aboutlist_adapter).OnClickEventHandler += (Title) =>
             {
                 Count++;
-                if (Title == "版本" && AboutMenu[0].RedPointVisibility && Count>10)
+                if (Title == "版本" && (AboutMenu[0].RedPointVisibility || Count>10))
                 {
                     Intent intent = new Intent(this, typeof(UpdataActivity));
                     //启动

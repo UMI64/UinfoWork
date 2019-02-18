@@ -3513,6 +3513,9 @@ namespace Uinfo
 			// aapt resource value: 0x7f0c0028
 			public const int Discription = 2131492904;
 			
+			// aapt resource value: 0x7f0c0029
+			public const int Tip = 2131492905;
+			
 			// aapt resource value: 0x7f0c0000
 			public const int abc_action_bar_home_description = 2131492864;
 			
