@@ -36,7 +36,6 @@ namespace Uinfo.Updata
 
             TextView VerisonDiscription = FindViewById<TextView>(Resource.Id.VerisonDiscription);
             VerisonDiscription.MovementMethod = ScrollingMovementMethod.Instance;
-            VerisonDiscription.Text = "";
             try
             {
                 JObject jObject = (JObject)JsonConvert.DeserializeObject(NewVerison.VersionDiscription);
