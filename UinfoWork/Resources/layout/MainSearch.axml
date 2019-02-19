@@ -65,7 +65,8 @@
 						android:id="@+id/TimeLockButton"
 						android:background="@drawable/LockUp"
 						android:layout_alignParentRight="true"
-						android:layout_above="@+id/TimeText" />
+						android:layout_above="@+id/TimeText"
+						android:visibility="invisible"/>
 					<TextView
 						android:text="第11周"
 						android:textSize="25sp"

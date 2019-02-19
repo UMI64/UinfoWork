@@ -36,6 +36,7 @@ namespace Uinfo.About
             Aboutlist_adapter = new AboutRecyclerViewAdapter(AboutMenu, this);//创建适配器
             AboutRecyclertView.SetLayoutManager(new LinearLayoutManager(this));//
             AboutRecyclertView.SetAdapter(Aboutlist_adapter);//设置链表的适配器
+            Aboutlist_adapter.NotifyDataSetChanged();
             //点击选项后的操作
             int Count= 0;
             bool UpDataActivityStarting = false;
