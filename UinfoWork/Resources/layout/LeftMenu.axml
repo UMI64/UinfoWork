@@ -5,6 +5,7 @@
 	android:layout_height="match_parent"
 	android:layout_width="250dp"
 	android:id="@+id/drwerLayout"
+	android:background="#ffffff"
 	android:layout_gravity="start">
 	<LinearLayout
 		android:orientation="vertical"

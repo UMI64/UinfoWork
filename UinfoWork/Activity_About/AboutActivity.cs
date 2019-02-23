@@ -9,9 +9,10 @@ using Android.Views;
 using Android.Widget;
 using Android.Content;
 using Uinfo.Updata;
+using Android.Support.Design.Widget;
 namespace Uinfo.About
 {
-    [Activity(Label = "About")]
+    [Activity(Label = "About", Theme = "@style/AppTheme.NoActionBar")]
     public class AboutActivity : AppCompatActivity
     {
         List<AboutItem> AboutMenu = new List<AboutItem>();
@@ -22,9 +23,18 @@ namespace Uinfo.About
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.About);
-            #region 设置ToolBar
-            SetToolBar();
+            #region 设置toolbar
+            CollapsingToolbarLayout mCollapsingToolbarLayout = FindViewById<CollapsingToolbarLayout>(Resource.Id.Collapsing_toolbar_layout);
+            mCollapsingToolbarLayout.SetTitle("关于");
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            toolbar.SetNavigationIcon(Resource.Drawable.abc_ic_ab_back_material);
+            toolbar.NavigationClick += Toolbar_NavigationClick;
+            void Toolbar_NavigationClick(object sender, Android.Support.V7.Widget.Toolbar.NavigationClickEventArgs e)
+            {
+                Finish();
+            }
             #endregion
+
             #region 获取更新信息
             new LoadVerisonTask(this).Execute(5);
             #endregion
@@ -55,26 +65,6 @@ namespace Uinfo.About
                     UpDataActivityStarting = false;
                 }
             };
-        }
-        private void SetToolBar()
-        {
-            SupportActionBar.Title = "关于";
-            SupportActionBar.SetDisplayShowTitleEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-        }
-        /// <summary>
-        /// Toolbar的事件---返回
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            if (item.ItemId == Android.Resource.Id.Home)
-            {
-                Finish();
-            }
-            return base.OnOptionsItemSelected(item);
         }
 
         /// <summary>

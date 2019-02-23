@@ -122,7 +122,8 @@
 			android:id="@+id/RoomRecyclertView"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+			android:layout_height="match_parent"
+			android:background="#11000000"/>
 	</android.support.design.widget.CoordinatorLayout>
 	<include layout="@layout/LeftMenu" />
 </android.support.v4.widget.DrawerLayout>
