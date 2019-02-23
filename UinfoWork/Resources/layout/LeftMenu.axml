@@ -12,7 +12,7 @@
 		android:layout_height="120dp"
 		android:layout_width="match_parent"
 		android:background="@drawable/ic_launcher_background_HD">
-		<ImageButton
+		<ImageView
 			android:src="@drawable/ic_launcher_foreground_HD"
 			android:layout_width="80dp"
 			android:layout_height="80dp"
@@ -33,7 +33,7 @@
 			android:src="@drawable/LeftMenuIcon_Module"
 			android:layout_width="40dp"
 			android:layout_height="match_parent"
-			android:id="@+id/imageView1"
+			android:id="@+id/中二病imageView"
 			android:padding="7dp" />
 		<TextView
 			android:text="普通模式"
@@ -55,7 +55,7 @@
 			android:src="@drawable/LeftMenuIcon_About"
 			android:layout_width="40dp"
 			android:layout_height="match_parent"
-			android:id="@+id/imageView1"
+			android:id="@+id/AboutimageView"
 			android:padding="7dp" />
 		<TextView
 			android:text="关于"
@@ -77,7 +77,7 @@
 			android:src="@drawable/LeftMenuIcon_TuCao"
 			android:layout_width="40dp"
 			android:layout_height="match_parent"
-			android:id="@+id/imageView1"
+			android:id="@+id/TocaoimageView"
 			android:padding="7dp" />
 		<TextView
 			android:text="吐槽"

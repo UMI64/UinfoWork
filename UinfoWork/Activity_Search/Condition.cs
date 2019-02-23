@@ -57,8 +57,11 @@ namespace Uinfo
             this.roomlist_adapter = roomlist_adapter;
             #region 中二病
             TextView 中二病 = ((Activity)context).FindViewById<TextView>(Resource.Id.中二病Text);
-            ImageButton LeftMenuHead = ((Activity)context).FindViewById<ImageButton>(Resource.Id.imageButton1);
-            中二病.Click += (sender, args) =>
+            ImageView 中二病imageView = ((Activity)context).FindViewById<ImageView>(Resource.Id.中二病imageView);
+            ImageView LeftMenuHead = ((Activity)context).FindViewById<ImageView>(Resource.Id.imageButton1);
+            中二病imageView.Click += 中二病imageView_Click;
+            中二病.Click += 中二病imageView_Click;
+            void 中二病imageView_Click(object sender, EventArgs e)
             {
                 if (中二病Flag)
                 {
@@ -74,7 +77,7 @@ namespace Uinfo
                     LeftMenuHead.SetImageDrawable(context.GetDrawable(Resource.Drawable.APPButtonImage));
                     SetTime();
                 }
-            };
+            }
             #endregion
             #region 监听时间改变
             var intentFilter = new IntentFilter();
@@ -118,6 +121,7 @@ namespace Uinfo
             };//改变时间
             #endregion
         }
+
         private void ChangeTime()
         {
             Android.Support.V7.App.AlertDialog.Builder customizeDialog = new Android.Support.V7.App.AlertDialog.Builder(context);

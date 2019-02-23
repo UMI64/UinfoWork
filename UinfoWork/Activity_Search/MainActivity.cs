@@ -58,29 +58,37 @@ namespace Uinfo
                 drawerLayout.OpenDrawer((int)GravityFlags.Start);
             };
             //关于
+            ImageView AboutimageView=FindViewById<ImageView>(Resource.Id.AboutimageView);
             TextView AboutText = FindViewById<TextView>(Resource.Id.AboutText);
-            AboutText.Click += (o, e) =>
+            AboutimageView.Click += AboutimageView_Click;
+            AboutText.Click += AboutimageView_Click;
+            void AboutimageView_Click(object sender, EventArgs e)
             {
                 Intent intent = new Intent(this, typeof(AboutActivity));
                 //启动关于界面
                 StartActivity(intent);
-            };
+            }
             //吐槽
+            ImageView TocaoimageView = FindViewById<ImageView>(Resource.Id.TocaoimageView);
             TextView TocaoText = FindViewById<TextView>(Resource.Id.TocaoText);
-            TocaoText.Click += (o, e) =>
+            TocaoimageView.Click += TocaoimageView_Click;
+            TocaoText.Click += TocaoimageView_Click;
+            void TocaoimageView_Click(object sender, EventArgs e)
             {
                 Intent intent = new Intent(this, typeof(TuCaoFakeActivity));
                 //启动假吐槽界面
                 StartActivity(intent);
-            };
-            TocaoText.LongClick += (o, e) =>
+            }
+            TocaoimageView.LongClick += TocaoimageView_LongClick;
+            TocaoText.LongClick += TocaoimageView_LongClick;
+            void TocaoimageView_LongClick(object sender, View.LongClickEventArgs e)
             {
                 Intent intent = new Intent(this, typeof(TuCaoActivity));
                 //启动吐槽界面
                 StartActivity(intent);
-            };
-             /*左菜单的版本号*/
-             TextView VersionCode = FindViewById<TextView>(Resource.Id.VersionCodeText);
+            }
+            /*左菜单的版本号*/
+            TextView VersionCode = FindViewById<TextView>(Resource.Id.VersionCodeText);
             VersionCode.Text = "版本 " + APKVersionCodeUtils.GetVerName(this);
             #endregion
             #region 搜索条件
@@ -131,6 +139,7 @@ namespace Uinfo
             };
             #endregion
         }
+
         /// <summary>
         /// 加载更多逻辑
         /// </summary>
