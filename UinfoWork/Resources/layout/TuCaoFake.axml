@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="#06000000"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<EditText
+		android:text=""
+		android:id="@+id/help_feedback"
+		android:lines="10"
+		android:gravity="top"
+		android:background="@drawable/bg_DialogRound"
+		android:hint="请输入您的反馈意见(字数500以内)！"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:padding="5dp" />
+	<Button
+		android:text="发送"
+		android:layout_width="wrap_content"
+		android:layout_height="30dp"
+		android:background="@color/colorPrimary"
+		android:textColor="@color/white"
+		android:id="@+id/SendButton"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginBottom="60dp" />
+</RelativeLayout>

@@ -6,7 +6,7 @@
 	<RelativeLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="60dp"
+		android:layout_height="80dp"
 		android:background="@drawable/bg_RoomCard"
 		android:layout_marginLeft="19dp"
 		android:layout_marginRight="19dp"
@@ -30,9 +30,9 @@
 			android:layout_height="wrap_content"
 			android:textColor="@color/white"
 			android:textSize="17sp"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="18dp"
 			android:layout_toEndOf="@+id/RoomNum"
-			android:layout_marginLeft="5dp" />
+			android:layout_marginLeft="8dp" />
 		<TextView
 			android:text="刘清友"
 			android:textAppearance="?android:attr/textAppearanceLarge"
@@ -43,7 +43,8 @@
 			android:textSize="12sp"
 			android:layout_alignStart="@+id/CourseName"
 			android:layout_below="@+id/CourseName"
-			android:layout_marginRight="9dp" />
+			android:layout_marginRight="9dp"
+			android:layout_marginTop="8dp" />
 		<TextView
 			android:text="6:00~22:00"
 			android:textAppearance="?android:attr/textAppearanceLarge"
@@ -54,7 +55,7 @@
 			android:textColor="@color/white"
 			android:textSize="15sp"
 			android:layout_alignParentRight="true"
-			android:layout_marginRight="18.0dp" />
+			android:layout_marginRight="18dp" />
 		<TextView
 			android:text="2333333"
 			android:textAppearance="?android:attr/textAppearanceLarge"
@@ -64,6 +65,7 @@
 			android:textColor="@color/white"
 			android:layout_below="@+id/CourseName"
 			android:layout_toEndOf="@id/TeacherName"
-			android:textSize="12sp"/>
+			android:textSize="12sp"
+			android:layout_marginTop="8dp"/>
 	</RelativeLayout>
 </LinearLayout>

@@ -5,19 +5,23 @@
 	android:layout_height="match_parent"
 	android:layout_width="250dp"
 	android:id="@+id/drwerLayout"
-	android:background="#ffffff"
 	android:layout_gravity="start">
-	<ImageButton
-		android:src="@drawable/APPButtonImage"
-		android:layout_width="80dp"
-		android:layout_height="80dp"
-		android:id="@+id/imageButton1"
-		android:background="#00000000"
-		android:layout_marginTop="20dp"
-		android:layout_marginBottom="20dp"
-		android:layout_gravity="center"
-		android:scaleType="fitCenter"
-		android:visibility="invisible"/>
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="120dp"
+		android:layout_width="match_parent"
+		android:background="@drawable/ic_launcher_background_HD">
+		<ImageButton
+			android:src="@drawable/ic_launcher_foreground_HD"
+			android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:id="@+id/imageButton1"
+			android:background="#00000000"
+			android:layout_marginTop="20dp"
+			android:layout_marginBottom="20dp"
+			android:layout_gravity="center"
+			android:scaleType="fitCenter"/>
+	</LinearLayout>
 	<TextView
 		android:text="普通模式"
 		android:background="?android:attr/selectableItemBackground"
@@ -26,8 +30,7 @@
 		android:layout_height="40dp"
 		android:paddingLeft="30dp"
 		android:gravity="left|center"
-		android:id="@+id/中二病Text"
-		android:visibility="invisible"/>
+		android:id="@+id/中二病Text"/>
 	<TextView
 		android:text="关于"
 		android:background="?android:attr/selectableItemBackground" 
@@ -39,7 +42,6 @@
 		android:id="@+id/AboutText" />
 	<TextView
 		android:text="吐槽"
-		android:visibility="invisible"
 		android:background="?android:attr/selectableItemBackground" 
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="match_parent"

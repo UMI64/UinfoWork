@@ -1,99 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="45dp">
-	<EditText
-		android:inputType="numberDecimal"
-		android:layout_width="55dp"
-		android:layout_height="40dp"
-		android:minWidth="25px"
-		android:minHeight="25px"
-		android:id="@+id/year"
-		android:text="1"
-		android:gravity="center"
-		android:layout_toLeftOf="@+id/yearText"
-		android:layout_centerVertical="true" />
-	<TextView
-		android:text="年"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/yearText"
-		android:layout_toLeftOf="@+id/month"
-		android:layout_centerVertical="true" />
-	<EditText
-		android:inputType="numberDecimal"
-		android:layout_width="30dp"
-		android:layout_height="40dp"
-		android:minWidth="25px"
-		android:minHeight="25px"
-		android:id="@+id/month"
-		android:layout_toLeftOf="@+id/monthText"
-		android:text="1"
-		android:gravity="center" 
-		android:layout_centerVertical="true" />
-	<TextView
-		android:text="月"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/monthText"
-		android:layout_toLeftOf="@+id/day"
-		android:layout_centerVertical="true" />
-	<EditText
-		android:inputType="numberDecimal"
-		android:layout_width="30dp"
-		android:layout_height="40dp"
-		android:minWidth="25px"
-		android:minHeight="25px"
-		android:id="@+id/day"
-		android:layout_centerHorizontal="true"
-		android:layout_centerVertical="true" 
-		android:text="1"
-		android:gravity="center"/>
-	<TextView
-		android:text="日  "
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/dayText"
-		android:layout_toRightOf="@+id/day"
-		android:layout_centerVertical="true" />
-	<EditText
-		android:inputType="numberDecimal"
-		android:layout_width="29dp"
-		android:layout_height="40dp"
-		android:minWidth="25px"
-		android:minHeight="25px"
-		android:id="@+id/hour"
-		android:layout_toRightOf="@+id/dayText"
-		android:layout_centerVertical="true"
-		android:text="1"
-		android:gravity="center" />
-	<TextView
-		android:text="："
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/maohao"
-		android:layout_toRightOf="@+id/hour"
-		android:layout_centerVertical="true" />
-	<EditText
-		android:inputType="numberDecimal"
-		android:layout_width="29dp"
-		android:layout_height="40dp"
-		android:minWidth="25px"
-		android:minHeight="25px"
-		android:id="@+id/minute"
-		android:layout_toRightOf="@+id/maohao"
-		android:text="1"
-		android:gravity="center"
-		android:layout_centerVertical="true" />
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/bg_DialogRound"
+	android:paddingBottom="10dp">
+	<RelativeLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:id="@+id/ChangeTimeLayout">
+		<EditText
+			android:inputType="numberDecimal"
+			android:layout_width="55dp"
+			android:layout_height="40dp"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/year"
+			android:text="1"
+			android:gravity="center"
+			android:layout_toLeftOf="@+id/yearText"
+			android:layout_centerVertical="true" />
+		<TextView
+			android:text="年"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/yearText"
+			android:layout_toLeftOf="@+id/month"
+			android:layout_centerVertical="true" />
+		<EditText
+			android:inputType="numberDecimal"
+			android:layout_width="30dp"
+			android:layout_height="40dp"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/month"
+			android:layout_toLeftOf="@+id/monthText"
+			android:text="1"
+			android:gravity="center"
+			android:layout_centerVertical="true" />
+		<TextView
+			android:text="月"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/monthText"
+			android:layout_toLeftOf="@+id/day"
+			android:layout_centerVertical="true" />
+		<EditText
+			android:inputType="numberDecimal"
+			android:layout_width="30dp"
+			android:layout_height="40dp"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/day"
+			android:layout_centerHorizontal="true"
+			android:layout_centerVertical="true"
+			android:text="1"
+			android:gravity="center"/>
+		<TextView
+			android:text="日  "
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/dayText"
+			android:layout_toRightOf="@+id/day"
+			android:layout_centerVertical="true" />
+		<EditText
+			android:inputType="numberDecimal"
+			android:layout_width="29dp"
+			android:layout_height="40dp"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/hour"
+			android:layout_toRightOf="@+id/dayText"
+			android:layout_centerVertical="true"
+			android:text="1"
+			android:gravity="center" />
+		<TextView
+			android:text="："
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/maohao"
+			android:layout_toRightOf="@+id/hour"
+			android:layout_centerVertical="true" />
+		<EditText
+			android:inputType="numberDecimal"
+			android:layout_width="29dp"
+			android:layout_height="40dp"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/minute"
+			android:layout_toRightOf="@+id/maohao"
+			android:text="1"
+			android:gravity="center"
+			android:layout_centerVertical="true" />
+	</RelativeLayout>
 	<Button
-		android:text="Button"
-		android:layout_width="40dp"
-		android:layout_height="35dp"
+		android:text="确定"
+		android:layout_width="60dp"
+		android:layout_height="26dp"
+		android:background="@color/colorPrimary"
+		android:textColor="@color/white"
 		android:id="@+id/OKButon"
-		android:layout_alignParentRight="true" />
+		android:layout_below="@+id/ChangeTimeLayout"
+		android:layout_centerHorizontal="true"/>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingLeft="5dp"
+		android:paddingRight="5dp"
+		android:background="@drawable/bg_ConditionText"
+		android:id="@+id/EmptyRoomSwitch"
+		android:layout_alignBottom="@+id/OKButon"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="20dp">
+		<TextView
+			android:text="时间跟随系统"
+			android:textSize="13sp"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="23dp"
+			android:layout_gravity="center_vertical"
+			android:gravity="center"
+			android:textColor="#FFFFFF"
+			android:id="@+id/FollowingSystemText"/>
+	</LinearLayout>
 </RelativeLayout>

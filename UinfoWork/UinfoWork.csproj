@@ -68,6 +68,7 @@
     <Compile Include="Activity_Search\SearchEditText.cs" />
     <Compile Include="Activity_Search\SearchRoom.cs" />
     <Compile Include="Activity_TuCao\TuCaoActivity.cs" />
+    <Compile Include="Activity_TuCao\TuCaoFakeActivity.cs" />
     <Compile Include="Activity_Updata\UpdataActivity.cs" />
     <Compile Include="Activity_Updata\Verison.cs" />
     <Compile Include="Tools\HttpUtils.cs" />
@@ -289,6 +290,28 @@
     <AndroidResource Include="Resources\layout\TuCao.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_launcher_background_HD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_launcher_foreground_HD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_ConditionText.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_DialogRound.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\TuCaoFake.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\About_image2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

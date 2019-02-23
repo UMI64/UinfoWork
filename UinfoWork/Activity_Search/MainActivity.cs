@@ -65,8 +65,15 @@ namespace Uinfo
                 //启动关于界面
                 StartActivity(intent);
             };
+            //吐槽
             TextView TocaoText = FindViewById<TextView>(Resource.Id.TocaoText);
             TocaoText.Click += (o, e) =>
+            {
+                Intent intent = new Intent(this, typeof(TuCaoFakeActivity));
+                //启动假吐槽界面
+                StartActivity(intent);
+            };
+            TocaoText.LongClick += (o, e) =>
             {
                 Intent intent = new Intent(this, typeof(TuCaoActivity));
                 //启动吐槽界面
@@ -89,6 +96,9 @@ namespace Uinfo
             Random rd = new Random();
             SearchBox.Hint = jArray[rd.Next(0, jArray.Count)].ToString();
             /*开始搜索教室*/
+            /*第一次启动搜索一次防止说空*/
+            loadMoreWrapper.LoadState = LoadMoreWrapper.LOADING;
+            new LoadTask(this, searchRoom, loadMoreWrapper, conditions).Execute("101");
             SearchBox.EditorAction += (sender, args) =>
             {
                 if (args.ActionId == ImeAction.Search)
@@ -113,9 +123,9 @@ namespace Uinfo
             layout.OffsetChanged += (object sender, AppBarLayout.OffsetChangedEventArgs e) =>
             {
                 int gray = 255;
-                if (-e.VerticalOffset < 255)
-                    gray = -e.VerticalOffset;
-                Color filtercolor= Color.Rgb(gray, gray, gray);
+                if (-e.VerticalOffset+162 < 255)
+                    gray = -e.VerticalOffset+162;
+                Color filtercolor = Color.Rgb(255, 242, gray);
                 CalLeftMenu_button.Background.SetColorFilter(filtercolor, PorterDuff.Mode.Multiply);
                 SearchButton.Background.SetColorFilter(filtercolor, PorterDuff.Mode.Multiply);
             };

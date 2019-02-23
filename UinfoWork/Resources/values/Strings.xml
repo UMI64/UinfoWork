@@ -2,11 +2,12 @@
   <string name="app_name">UinfoWork</string>
   <string name="Discription">
     {\"VerisonDiscription\":[
-    \"关闭争议功能\"]}</string>
+    \"修复若干问题\"]}</string>
   <string name="Tip">
     {\"Tips\": [
     \"试试搜索\\\"101\\\"\",
     \"试试搜索老师的名字\",
+    \"按住吐槽的时间越长吐槽越灵\",
     \"课程号也是可以搜索的\"]}
   </string>
 </resources>
