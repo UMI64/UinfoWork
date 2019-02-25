@@ -20,7 +20,7 @@ using Android.Graphics.Drawables;
 
 namespace Uinfo
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/StartTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class MainActivity : AppCompatActivity
     {
         public Condition conditions;

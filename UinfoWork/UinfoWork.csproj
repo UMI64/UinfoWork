@@ -67,6 +67,7 @@
     <Compile Include="Activity_Search\RoomDataRecycleViewAdapter.cs" />
     <Compile Include="Activity_Search\SearchEditText.cs" />
     <Compile Include="Activity_Search\SearchRoom.cs" />
+    <Compile Include="Activity_Start\StartActivity.cs" />
     <Compile Include="Activity_TuCao\TuCaoActivity.cs" />
     <Compile Include="Activity_TuCao\TuCaoFakeActivity.cs" />
     <Compile Include="Activity_Updata\UpdataActivity.cs" />
