@@ -19,9 +19,9 @@ namespace Uinfo
         {
             base.OnCreate(savedInstanceState);
             Intent intent = new Intent(this, typeof(MainActivity));
-            intent.SetFlags(ActivityFlags.ClearTask | ActivityFlags.NewTask);
             //启动主界面
             StartActivity(intent);
+            Finish();
         }
     }
 }
