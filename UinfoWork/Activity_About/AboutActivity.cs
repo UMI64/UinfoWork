@@ -58,6 +58,7 @@ namespace Uinfo.About
                     UpDataActivityStarting = true;
                     Intent intent = new Intent(this, typeof(UpdataActivity));
                     //启动
+                    intent.SetFlags(ActivityFlags.SingleTop);
                     intent.PutExtra("VersionCode", NewVerison.VersionCode.ToString());
                     intent.PutExtra("VersionName", NewVerison.VersionName.ToString());
                     intent.PutExtra("VersionDiscription", NewVerison.VersionDiscription.ToString());

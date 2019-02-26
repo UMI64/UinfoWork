@@ -64,6 +64,7 @@ namespace Uinfo
             {
                 Intent intent = new Intent(this, typeof(AboutActivity));
                 //启动关于界面
+                intent.SetFlags(ActivityFlags.SingleTop);
                 StartActivity(intent);
             }
             //吐槽
@@ -75,6 +76,7 @@ namespace Uinfo
             {
                 Intent intent = new Intent(this, typeof(TuCaoFakeActivity));
                 //启动假吐槽界面
+                intent.SetFlags(ActivityFlags.SingleTop);
                 StartActivity(intent);
             }
             TocaoimageView.LongClick += TocaoimageView_LongClick;
@@ -83,6 +85,7 @@ namespace Uinfo
             {
                 Intent intent = new Intent(this, typeof(TuCaoActivity));
                 //启动吐槽界面
+                intent.SetFlags(ActivityFlags.SingleTop);
                 StartActivity(intent);
             }
             /*左菜单的版本号*/
