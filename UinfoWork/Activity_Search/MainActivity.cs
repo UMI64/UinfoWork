@@ -14,9 +14,7 @@ using Uinfo.About;
 using Uinfo.Activity_TuCao;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Android.Runtime;
 using Android.Graphics;
-using Android.Graphics.Drawables;
 
 namespace Uinfo
 {

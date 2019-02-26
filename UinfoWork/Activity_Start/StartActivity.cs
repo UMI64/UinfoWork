@@ -12,13 +12,14 @@ using Android.Widget;
 
 namespace Uinfo
 {
-    [Activity(Label = "StartActivity", Theme = "@style/StartTheme", MainLauncher = true)]
+    [Activity(Label = "Uinfo", Theme = "@style/StartTheme", MainLauncher = true)]
     public class StartActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Intent intent = new Intent(this, typeof(MainActivity));
+            intent.SetFlags(ActivityFlags.ClearTask | ActivityFlags.NewTask);
             //启动主界面
             StartActivity(intent);
         }
